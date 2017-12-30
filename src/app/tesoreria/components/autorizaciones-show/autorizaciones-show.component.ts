@@ -88,7 +88,7 @@ export class AutorizacionesShowComponent implements OnInit {
   }
 
   doAutorizar(sol) {
-    sol.comentario = '';
+    sol.comentario = null;
     this.service.autorizar(sol)
       .do( () => this.procesando = true)
       .finally( () => this.procesando = false)
