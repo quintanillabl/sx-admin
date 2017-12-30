@@ -1,0 +1,66 @@
+<mat-card flex="50" >
+
+  <ng-container *tdLoading="let sol until solicitud$ | async; color:'accent'">
+
+  <mat-card-title>Autorización de deposito: {{sol?.folio}}</mat-card-title>
+  <mat-card-subtitle>{{sol?.sucursal?.nombre}} / {{sol?.fecha | date: 'dd/MM/yyyy'}}</mat-card-subtitle>
+  <mat-divider></mat-divider>
+  <mat-list >
+    <h3 matSubheader>Metadata</h3>
+    <mat-list-item>
+      <mat-icon matListAvatar>account_box</mat-icon>
+      <h4 matLine>{{sol?.cliente?.nombre}}</h4>
+      <p matLine>Cliente</p>
+    </mat-list-item>
+    <mat-divider matInset></mat-divider>
+    <mat-list-item>
+      <mat-icon matListAvatar>description</mat-icon>
+      <h4 matLine>{{sol?.total  | currency: 'USD': 1.2-2 }}</h4>
+      <p matLine>Description</p>
+    </mat-list-item>
+    <mat-divider matInset></mat-divider>
+    <mat-list-item>
+      <mat-icon matListAvatar>account_balance</mat-icon>
+      <h4 matLine>{{sol?.banco?.nombre}}</h4>
+      <p matLine>Banco</p>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon matListAvatar>vpn_key</mat-icon>
+      <h4 matLine>{{sol?.referencia}}</h4>
+      <p matLine>Referencia bancaria</p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <h3 matSubheader>Bitácora</h3>
+    <mat-list-item>
+      <mat-icon matListAvatar>today</mat-icon>
+      <h4 matLine>{{sol?.fechaDeposito | date: 'short'}}</h4>
+      <p matLine>Fecha deposito</p>
+    </mat-list-item>
+    <mat-divider matInset></mat-divider>
+    <mat-list-item>
+      <mat-icon matListAvatar>account_circle</mat-icon>
+      <h4 matLine>{{sol?.updateUser}}</h4>
+      <p matLine>Usuario</p>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon matListAvatar>info</mat-icon>
+      <h4 matLine>{{sol?.comentario}}</h4>
+      <p matLine>Último comentario</p>
+    </mat-list-item>
+
+
+
+  </mat-list>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <ng-template tdLoading [tdLoadingUntil]="!procesando" tdLoadingStrategy="overlay" tdLoadingType="linear">
+    <a [routerLink]="['/tesoreria/autorizaciones']" mat-button class="text-upper">Cancelar</a>
+    <button mat-button color="accent" (click)="rechazar()" class="text-upper">Rechasar</button>
+    <button mat-button color="primary" (click)="autorizar()" class="text-upper">Autorizar</button>
+    </ng-template>
+  </mat-card-actions>
+  </ng-container>
+</mat-card>
+
+
+

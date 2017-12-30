@@ -121,13 +121,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "lx",
+      "sx",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "lx",
+      "sx",
       "kebab-case"
     ],
     "no-output-on-prefix": true,
