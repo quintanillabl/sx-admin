@@ -77,7 +77,7 @@ export class AutorizacionesShowComponent implements OnInit {
     this._dialogService.openPrompt({
       message: 'Motivo',
       viewContainerRef: this._viewContainerRef,
-      title: 'Rechazar solicitud de deposto',
+      title: 'Rechazar solicitud de deposito',
       cancelButton: 'Cancelar',
       acceptButton: 'Aceptar',
     }).afterClosed().subscribe((newValue: string) => {
@@ -105,7 +105,10 @@ export class AutorizacionesShowComponent implements OnInit {
       .do( () => this.procesando = true)
       .finally( () => this.procesando = false)
       .catch(error2 => Observable.of(error2))
-      .subscribe( res => console.log('Sol actualizada: ', res));
+      .subscribe( res => {
+        console.log('Sol rechazada: ', res)
+        this.router.navigate(['/tesoreria/autorizaciones']);
+      });
   }
 
 
