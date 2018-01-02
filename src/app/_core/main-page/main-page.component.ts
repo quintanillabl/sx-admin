@@ -24,6 +24,21 @@ export class MainPageComponent implements OnInit {
       title: 'Tesoreria'
     },
     {
+      icon: 'shopping_cart',
+      route: '/compras',
+      title: 'Compras'
+    },
+    {
+      icon: 'library_books',
+      route: '/cxp',
+      title: 'Cuentas por pagar'
+    },
+    {
+      icon: 'list',
+      route: '/cxc',
+      title: 'CXC Cuentas por cobrar'
+    },
+    {
       icon: 'color_lens',
       route: '/tableros',
       title: 'Tableros',

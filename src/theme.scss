@@ -17,5 +17,18 @@ $warn:    mat-palette($mat-red, 600, 100, 900);
 $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
-// @include covalent-theme($theme, $typography); // $typography is an **optional** argument for the 
+// @include covalent-theme($theme, $typography); // $typography is an **optional** argument for the
 @include covalent-theme($theme);
+
+// Active icon color in list nav
+mat-nav-list {
+  [mat-list-item].active {
+    mat-icon[matListAvatar] {
+      background-color: mat-color($accent);
+      color: mat-color($accent, default-contrast)
+    }
+    mat-icon[matListIcon] {
+      color: mat-color($accent);
+    }
+  }
+}

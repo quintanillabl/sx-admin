@@ -6,6 +6,7 @@ import { MaterialModule } from './_material/material.module';
 import { CovalentModule } from './_covalent/covalent.module';
 import {RouterModule} from '@angular/router';
 import { PageFooterComponent } from './pages/page-footer/page-footer.component';
+import { SxNavListComponent } from './layout/sx-nav-list/sx-nav-list.component';
 
 
 @NgModule({
@@ -13,17 +14,19 @@ import { PageFooterComponent } from './pages/page-footer/page-footer.component';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    RouterModule.forChild([]),
     MaterialModule,
     CovalentModule,
   ],
-  declarations: [PageFooterComponent],
+  declarations: [PageFooterComponent, SxNavListComponent],
   exports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
     CovalentModule,
-    PageFooterComponent
+    PageFooterComponent,
+    SxNavListComponent,
   ]
 })
 export class SharedModule { }

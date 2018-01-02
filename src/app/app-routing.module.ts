@@ -11,6 +11,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: 'home', component: HomePageComponent},
       { path: 'tesoreria', loadChildren: './tesoreria/tesoreria.module#TesoreriaModule'},
+      { path: 'compras', loadChildren: './compras/compras.module#ComprasModule'},
       { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesModule'}
       // { path: 'security', loadChildren: './security/security.module#SecurityModule'}
     ]
