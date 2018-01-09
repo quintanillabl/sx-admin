@@ -1,5 +1,5 @@
 <div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']" class="page" layout>
-  <mat-card flex="60">
+  <mat-card flex="70">
     <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
     <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
       <span class="mat-title">Solicitudes pendientes de autorizar</span>
@@ -25,9 +25,9 @@
     <mat-list class="pull-top">
       <mat-list-item>
         <mat-icon matListAvatar>apps</mat-icon>
+        <span flex="30" class="mat-body-1 tc-grey-500">Solicito</span>
         <h3 matLine>Cliente</h3>
         <span flex></span>
-        <span flex="30" class="mat-body-1 tc-grey-500">Solicito</span>
         <span flex="30" class="pad-left mat-body-1 tc-grey-500">F.Deposito</span>
       </mat-list-item>
       <mat-divider></mat-divider>
@@ -38,18 +38,27 @@
             <ng-template let-i="row" let-last="last" tdVirtualScrollRow>
 
             <mat-list-item >
-              <a [routerLink]="['show', i.id]" mat-button="">
-                <mat-icon >dns</mat-icon>
-                <span>{{i.folio}}</span>
-              </a>
-              <h3 matLine> {{i.cliente.nombre}} </h3>
+              <div matLine>
+                <a [routerLink]="['show', i.id]" mat-button="" flex="30">
+                  <mat-icon >dns</mat-icon>
+                  <span>{{i.folio}}</span>
+                </a>
+                <span flex="20">{{i.sucursal.nombre}}</span>
+                <span flex="50">{{i.cliente.nombre}}</span>
+                
+                <!-- <h4 > {{i.cliente.nombre}} </h4> -->
+              </div>
+              
               <p matLine layout>
-                <span>{{i.sucursal.nombre}}</span>
+                <!-- <span>{{i.sucursal.nombre}}</span> -->
+                <span flex></span>
                 <span>Referencia: <span class="tc-indigo-800">{{i.referencia}}</span></span>
               </p>
               <span flex></span>
+              
               <span flex="30" class="mat-body-1 tc-grey-500">{{i.updateUser}}</span>
               <span flex="30" class="mat-body-1 tc-indigo-500">{{i.dateCreated | date: 'dd/MM/yyyy hh:mm'}}</span>
+              <span flex="30" class="mat-body-1 tc-indigo-500">{{ i.total | currency: 'USD': 1.2-2 }}</span>
             </mat-list-item>
 
             </ng-template>
