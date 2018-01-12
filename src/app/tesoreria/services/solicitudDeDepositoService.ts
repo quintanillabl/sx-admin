@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import * as _ from 'lodash';
 
 import { SolicitudDeDeposito } from '../model/solicitudDeDeposito';
 import { Sucursal } from 'app/_shared/models';
@@ -26,15 +27,21 @@ export class SolicitudDeDepositoService {
     return this.http.get<SolicitudDeDeposito[]>(url, {params: params});
   }
 
-  list(documento?: string, sucursal?: Sucursal ): Observable<SolicitudDeDeposito[]> {
+  list(filtro: {} = {}): Observable<SolicitudDeDeposito[]> {
     let params = new HttpParams();
-    if (documento) {
-      params =  params.set('documento', documento);
-    }
-    if (sucursal) {
-      params =  params.set('sucursal', sucursal.id);
-    }
+    _.forIn(filtro, (value, key) =>{
+      params = params.set(key,value);
+    });
     return this.http.get<SolicitudDeDeposito[]>(this.apiUrl, {params: params});
+  }
+
+  autorizadas(filtro: {} = {}): Observable<SolicitudDeDeposito[]> {
+    let params = new HttpParams();
+    _.forIn(filtro, (value, key) =>{
+      params = params.set(key,value);
+    });
+    const url = `${this.apiUrl}/autorizadas`
+    return this.http.get<SolicitudDeDeposito[]>(url, {params: params});
   }
 
   save(sol: SolicitudDeDeposito): Observable<SolicitudDeDeposito> {
