@@ -1,0 +1,30 @@
+<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']" class="page" layout>
+  <mat-card flex>
+    <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+    <span class="push-left-sm">
+      <span class="mat-title">Depositos autorizados</span>
+    </span>
+      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Buscar"
+                      (searchDebounce)="search($event)" flex>
+      </td-search-box>
+      <span>
+      <button mat-icon-button (click)="load()"><mat-icon>refresh</mat-icon></button> 
+      <button mat-icon-button [matMenuTriggerFor]="toolbarMenu"><mat-icon>more_vert</mat-icon></button>
+      <mat-menu #toolbarMenu="matMenu">
+      </mat-menu>
+    </span>
+    </div>
+    <div layout>
+      <td-data-table flex
+        [data]="solicitudes"
+        [columns]="columns" [style.width.px]="200">
+        <ng-template tdDataTableTemplate="img" let-value="value">
+          <img [src]="value"/>
+        </ng-template>
+      </td-data-table>
+    </div>
+    
+    <mat-divider></mat-divider>
+  </mat-card>
+</div>
+  

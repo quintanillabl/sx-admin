@@ -6,6 +6,7 @@ import { TesoreriaMainPageComponent } from './tesoreria-main-page/tesoreria-main
 import { AutorizacionDepositosPageComponent } from './pages/autorizacion-depositos-page/autorizacion-depositos-page.component';
 import { SolicitudDeDepositoService } from './services/solicitudDeDepositoService';
 import { AutorizacionesShowComponent } from './components/autorizaciones-show/autorizaciones-show.component';
+import { SolicitudesAutorizadasComponent } from './pages/solicitudes-autorizadas/solicitudes-autorizadas.component';
 
 
 
@@ -14,7 +15,7 @@ import { AutorizacionesShowComponent } from './components/autorizaciones-show/au
     SharedModule,
     TesoreriaRoutingModule
   ],
-  declarations: [TesoreriaMainPageComponent, AutorizacionDepositosPageComponent, AutorizacionesShowComponent],
+  declarations: [TesoreriaMainPageComponent, AutorizacionDepositosPageComponent, AutorizacionesShowComponent, SolicitudesAutorizadasComponent],
   providers: [SolicitudDeDepositoService],
   entryComponents: []
 })

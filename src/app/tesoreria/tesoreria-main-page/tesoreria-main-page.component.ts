@@ -19,8 +19,13 @@ export class TesoreriaMainPageComponent implements OnInit {
     {
       path: 'autorizaciones',
       title: 'Pendientes',
-      description: 'Solicitudes de deposito por autorizar',
+      description: 'Depósitos por autorizar',
       icon: 'repeat'
+    },
+    {
+      path: 'autorizados',
+      title: 'Autorizados',
+      description: 'Depositos autorizados'
     }
   ];
 
