@@ -12,7 +12,8 @@ const routes: Routes = [
       { path: 'home', component: HomePageComponent},
       { path: 'tesoreria', loadChildren: './tesoreria/tesoreria.module#TesoreriaModule'},
       { path: 'compras', loadChildren: './compras/compras.module#ComprasModule'},
-      { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesModule'}
+      { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesModule'},
+      { path: 'cxc', loadChildren: './cxc/cxc.module#CxcModule'}
       // { path: 'security', loadChildren: './security/security.module#SecurityModule'}
     ]
   }

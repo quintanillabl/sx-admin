@@ -1,0 +1,35 @@
+<mat-card layout="row" >
+  <div layout="row" layout-align="start center" class="pad-left pad-right">
+    <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+      <span class="mat-title">Notas de crédito</span>
+    </span>
+    <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" 
+      placeholder="Buscar" (searchDebounce)="search($event)" flex>
+    </td-search-box>
+    <span>
+      <button mat-icon-button [matMenuTriggerFor]="toolbarMenu"><mat-icon>more_vert</mat-icon></button>
+      <mat-menu #toolbarMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>refresh</mat-icon>
+          <span>Re cargar</span>
+        </button>
+        
+        <button mat-menu-item [routerLink]="['create']">
+          <mat-icon>add</mat-icon>
+          <span>Nuevo</span>
+        </button>
+        
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Reporte</span>
+        </button>
+
+      </mat-menu>
+    </span>
+
+  </div>
+  <mat-divider></mat-divider>
+  
+  <sx-cxcnotas-grid [data]="filteredData"></sx-cxcnotas-grid>
+  
+</mat-card>
