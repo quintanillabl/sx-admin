@@ -5,8 +5,9 @@ import {
   CovalentPagingModule, CovalentSearchModule, CovalentStepsModule,
   CovalentCommonModule, CovalentDialogsModule, CovalentMessageModule, CovalentExpansionPanelModule,
   CovalentJsonFormatterModule,
-  CovalentVirtualScrollModule,
+  CovalentVirtualScrollModule
 } from '@covalent/core';
+import { CovalentDynamicFormsModule } from '@covalent/dynamic-forms';
 
 const COVALENT_MODULES: any[] = [
   CovalentDataTableModule, CovalentMediaModule, CovalentLoadingModule,
@@ -14,7 +15,7 @@ const COVALENT_MODULES: any[] = [
   CovalentPagingModule, CovalentSearchModule, CovalentStepsModule,
   CovalentCommonModule, CovalentDialogsModule, CovalentMessageModule,
   CovalentExpansionPanelModule, CovalentJsonFormatterModule,
-  CovalentVirtualScrollModule
+  CovalentVirtualScrollModule, CovalentDynamicFormsModule
 ];
 
 @NgModule({

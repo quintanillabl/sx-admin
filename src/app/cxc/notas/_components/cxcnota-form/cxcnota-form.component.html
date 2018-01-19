@@ -1,3 +1,10 @@
-<p>
-  cxcnota-form works!
-</p>
+<td-dynamic-forms [elements]="fields">
+  <ng-template let-element ngFor [ngForOf]="fields">
+    <ng-template let-control="control" [tdDynamicFormsError]="element.name">
+      <span *ngIf="control.touched || !control.pristine">
+        <span *ngIf="control.hasError('minlength')">Min length value: {{element.minLength}}</span>
+        <span *ngIf="control.hasError('maxlength')">Max length value: {{element.minLength}}</span>
+      </span>
+    </ng-template>
+  </ng-template>
+</td-dynamic-forms>
