@@ -1,15 +1,18 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import { ClientesRoutingModule } from './clientes-routing.module';
 import { ClienteService } from './services/cliente.service';
+import { ClienteFieldComponent } from './_components/cliente-field/cliente-field.component';
+import { SharedModule } from 'app/_shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     ClientesRoutingModule
   ],
-  declarations: []
+  declarations: [ClienteFieldComponent],
+  exports: [ClienteFieldComponent]
 })
 export class ClientesModule {
 

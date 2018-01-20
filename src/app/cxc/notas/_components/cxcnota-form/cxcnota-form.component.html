@@ -1,10 +1,34 @@
-<td-dynamic-forms [elements]="fields">
-  <ng-template let-element ngFor [ngForOf]="fields">
-    <ng-template let-control="control" [tdDynamicFormsError]="element.name">
-      <span *ngIf="control.touched || !control.pristine">
-        <span *ngIf="control.hasError('minlength')">Min length value: {{element.minLength}}</span>
-        <span *ngIf="control.hasError('maxlength')">Max length value: {{element.minLength}}</span>
-      </span>
-    </ng-template>
-  </ng-template>
-</td-dynamic-forms>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  
+  <div layout layout-align="center center">
+    <sx-cliente-field formControlName="cliente" flex>
+
+    </sx-cliente-field>
+    <!-- <mat-form-field flex>
+      <input matInput placeholder="Cliente">
+    </mat-form-field> -->
+  </div>
+  
+  <div layout>
+    <mat-form-field flex>
+      <mat-select placeholder="Tipo" >
+        <mat-option *ngFor="let tipo of ['BONIFICACION','DEVOLUCION']" [value]="tipo">
+          {{ tipo }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="pad-left" flex>
+      <mat-select placeholder="Cartera" >
+        <mat-option *ngFor="let cartera of ['CRE','CON','CHE','JUR']" [value]="cartera">
+          {{ cartera }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div layout>
+    <mat-form-field flex>
+      <input matInput placeholder="Comentario">
+    </mat-form-field>
+  </div>
+</form>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 import { ITdDynamicElementConfig, TdDynamicElement, TdDynamicType } from '@covalent/dynamic-forms';
+
 
 @Component({
   selector: 'sx-cxcnota-form',
@@ -10,18 +12,8 @@ import { ITdDynamicElementConfig, TdDynamicElement, TdDynamicType } from '@coval
 export class CxcnotaFormComponent implements OnInit {
 
   form: FormGroup;
-  
-  fields = [
-    {
-      "name": "cliente",
-      "label": 'Cliente',
-      "type": "input",
-      "required": true,
-      "flex": 100,
-      
-    },
-    
-  ];
+
+  clientes$ :Observable<Array<any>>;
 
   constructor(
     private fb: FormBuilder
@@ -32,7 +24,11 @@ export class CxcnotaFormComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  onSubmit(){
+    console.log('Salvando nota: ', this.form.value)
   }
+  
 
 }
