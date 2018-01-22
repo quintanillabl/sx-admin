@@ -8,12 +8,11 @@
     Seleccione un cliente
   </mat-error>
 </mat-form-field>
-  
-<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" >
-  <mat-option *ngFor="let cliente of clientes$ | async " [value]="cliente" 
+
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="select($event)">
+  <mat-option *ngFor="let cliente of clientes$ | async " [value]="cliente"
     [ngClass]="{'tc-red-800': !cliente.activo}">
       {{cliente.nombre}} ({{cliente.rfc}}) - {{cliente.credito ? 'Credito': 'Contado' }}
   </mat-option>
 </mat-autocomplete>
-  
-  
+

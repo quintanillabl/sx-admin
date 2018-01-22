@@ -52,8 +52,8 @@ export class ClienteFieldComponent implements OnInit, ControlValueAccessor, OnDe
 
   constructor(
     private http: HttpClient,
-    //private config: ConfigService
-  ) { 
+    // private config: ConfigService
+  ) {
     // this.apiUrl = config.buildApiUrl('clientes');
     this.apiUrl = environment.apiUrl + '/clientes';
   }
@@ -63,27 +63,15 @@ export class ClienteFieldComponent implements OnInit, ControlValueAccessor, OnDe
       .valueChanges
       .startWith(null)
       .switchMap( term => this.lookup(term));
-
-    this.prepareControl();
   }
 
-  private prepareControl() {
-    this.subscription = this.searchControl
-      .valueChanges
-      .skip(1)
-      .filter( value => value !== null)
-      .subscribe( value => {
-        if ( _.isObject(value)) {
-          this.onChange(value);
-        } else {
-          // this.onChange(null);
-        }
-      });
+
+  select(event) {
+    // console.log('Selected: ', event.option.value);
+    this.onChange(event.option.value);
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+  ngOnDestroy() {}
 
   lookup(term: string): Observable<Cliente[]> {
     const params = new HttpParams()
@@ -97,7 +85,7 @@ export class ClienteFieldComponent implements OnInit, ControlValueAccessor, OnDe
 
   writeValue(obj: any): void {
     this.searchControl.setValue(obj);
-    if(obj === null) {
+    if (obj === null) {
       this.searchControl.reset();
     }
   }
@@ -119,7 +107,7 @@ export class ClienteFieldComponent implements OnInit, ControlValueAccessor, OnDe
   }
 
   onBlur() {
-    if(this.onTouch) {
+    if (this.onTouch) {
       this.onTouch();
     }
   }
