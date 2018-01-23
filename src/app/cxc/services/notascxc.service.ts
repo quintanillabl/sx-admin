@@ -33,6 +33,14 @@ export class NotascxcService {
     });
     return this.http.get<any>(this.apiUrl, {params: params})
   }
+
+  buscarRmd(filtro?): Observable<any> {
+    let params = new HttpParams();
+    _.forIn(filtro, (value, key) =>{
+      params = params.set(key,value);
+    });
+    return this.http.get<any>(this.apiUrl, {params: params});
+  }
   
   
 
