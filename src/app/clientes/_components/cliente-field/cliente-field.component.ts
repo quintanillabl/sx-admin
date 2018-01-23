@@ -79,8 +79,8 @@ export class ClienteFieldComponent implements OnInit, ControlValueAccessor, OnDe
     return this.http.get<Cliente[]>(this.apiUrl, {params: params});
   }
 
-  displayFn(producto: Cliente) {
-    return producto ? `${producto.nombre} (${producto.clave})` : '';
+  displayFn(cliente: Cliente) {
+    return cliente ? `${cliente.nombre} (${cliente.clave}) [${cliente.credito ? 'Crédito' : 'Contado'}]` : '';
   }
 
   writeValue(obj: any): void {

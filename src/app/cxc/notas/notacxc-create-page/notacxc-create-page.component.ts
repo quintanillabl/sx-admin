@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sx-notacxc-create-page',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotacxcCreatePageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  onCancelar() {
+    this.router.navigate(['cxc/notas']);
+  }
+
+  onSave(nota) {
+    console.log('Salvando nota: ', nota);
   }
 
 }

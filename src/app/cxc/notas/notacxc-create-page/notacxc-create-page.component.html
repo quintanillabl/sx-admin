@@ -1,9 +1,6 @@
-<div layout layout-align="center">
-  <mat-card flex="80">
-    <mat-card-title>Alta de nota de crédito</mat-card-title>
-    <mat-divider></mat-divider>
-    <mat-card-content>
-      <sx-cxcnota-form></sx-cxcnota-form>
-    </mat-card-content>
-  </mat-card>
+<div layout >
+  <sx-cxcnota-form flex
+    (save)="onSave($event)"
+    (cancelar)="onCancelar()">
+  </sx-cxcnota-form>
 </div>

@@ -8,12 +8,18 @@ import { CxcnotasGridComponent } from './_components/cxcnotas-grid/cxcnotas-grid
 import { CxcnotaFormComponent } from './_components/cxcnota-form/cxcnota-form.component';
 import { ClientesModule } from 'app/clientes/clientes.module';
 
+import { CurrencyMaskModule } from "ng2-currency-mask";
+import { SelectorDeRmdComponent } from './_components/selector-de-rmd/selector-de-rmd.component';
+import { CxcfacturasGridComponent } from './_components/cxcnota-form/cxcfacturas-grid/cxcfacturas-grid.component';
+import { RmdPanelComponent } from './_components/cxcnota-form/rmd-panel/rmd-panel.component';
+
 @NgModule({
   imports: [
     SharedModule,
     ClientesModule,
-    RouterModule.forChild([])
+    RouterModule.forChild([]),
+    CurrencyMaskModule,
   ],
-  declarations: [NotascxcPageComponent, NotacxcCreatePageComponent, CxcnotasGridComponent, CxcnotaFormComponent]
+  declarations: [NotascxcPageComponent, NotacxcCreatePageComponent, CxcnotasGridComponent, CxcnotaFormComponent, SelectorDeRmdComponent, CxcfacturasGridComponent, RmdPanelComponent]
 })
 export class NotasModule { }

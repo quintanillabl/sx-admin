@@ -2,7 +2,8 @@
   <input type="text" matInput [formControl]="searchControl" (blur)="onBlur()"
       [placeholder]="placeholder" #inputField
       [required]="required"
-      [matAutocomplete]="auto">
+      [matAutocomplete]="auto"
+      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
   <mat-icon matSuffix>search</mat-icon>
   <mat-error>
     Seleccione un cliente

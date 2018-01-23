@@ -7,6 +7,7 @@ import { CovalentModule } from './_covalent/covalent.module';
 import {RouterModule} from '@angular/router';
 import { PageFooterComponent } from './pages/page-footer/page-footer.component';
 import { SxNavListComponent } from './layout/sx-nav-list/sx-nav-list.component';
+import { OnlyNumbersDirective } from './directives/only-numbers.directive';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { SxNavListComponent } from './layout/sx-nav-list/sx-nav-list.component';
     MaterialModule,
     CovalentModule,
   ],
-  declarations: [PageFooterComponent, SxNavListComponent],
+  declarations: [PageFooterComponent, SxNavListComponent, OnlyNumbersDirective],
   exports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,6 +28,7 @@ import { SxNavListComponent } from './layout/sx-nav-list/sx-nav-list.component';
     CovalentModule,
     PageFooterComponent,
     SxNavListComponent,
+    OnlyNumbersDirective,
   ]
 })
 export class SharedModule { }
