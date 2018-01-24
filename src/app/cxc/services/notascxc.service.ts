@@ -43,6 +43,12 @@ export class NotascxcService {
     const url = this.apiUrl + '/buscarRmd';
     return this.http.get<any>(url, {params: params});
   }
+
+  generarNotaDeDevolucion(rmd, cartera) {
+    const params = new HttpParams().set('cartera', cartera);
+    const url = `${this.apiUrl}/generarConRmd/${rmd.id}`
+    return this.http.post(url, {}, { params: params});
+  }
   
   save(nota) {
     nota.cliente = { id: nota.cliente.id}

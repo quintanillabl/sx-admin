@@ -5,7 +5,7 @@ import { NotascxcService } from 'app/cxc/services/notascxc.service';
 @Component({
   selector: 'sx-notascxc-page',
   templateUrl: './notascxc-page.component.html',
-  styleUrls:['notascxc-page.component.scss']
+  styles:[]
 })
 export class NotascxcPageComponent implements OnInit {
 
@@ -16,8 +16,8 @@ export class NotascxcPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.service.list()
-    .subscribe( notas => this.filteredData = notas);
+    // this.service.list()
+    // .subscribe( notas => this.filteredData = notas);
   }
   
 

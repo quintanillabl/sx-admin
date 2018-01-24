@@ -4,6 +4,7 @@ import { CxcPageComponent } from './cxc-page/cxc-page.component';
 import { NotascxcPageComponent } from './notas/notascxc-page/notascxc-page.component';
 import { NotacxcCreatePageComponent } from 'app/cxc/notas/notacxc-create-page/notacxc-create-page.component';
 import { DevolucionesComponent } from 'app/cxc/notas/devoluciones/devoluciones.component';
+import { BonificacionesComponent } from 'app/cxc/notas/bonificaciones/bonificaciones.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
         path: 'notas',
         component: NotascxcPageComponent,
         children: [
-          {path: 'devoluciones', component: DevolucionesComponent}
+          {path: 'devoluciones', component: DevolucionesComponent},
+          {path: 'bonificaciones', component: BonificacionesComponent}
         ]
       },
       {

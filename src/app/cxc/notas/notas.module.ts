@@ -14,6 +14,7 @@ import { SelectorDeRmdComponent } from './_components/selector-de-rmd/selector-d
 import { CxcfacturasGridComponent } from './_components/cxcnota-form/cxcfacturas-grid/cxcfacturas-grid.component';
 import { RmdPanelComponent } from './_components/cxcnota-form/rmd-panel/rmd-panel.component';
 import { DevolucionesComponent } from './devoluciones/devoluciones.component';
+import { BonificacionesComponent } from './bonificaciones/bonificaciones.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { DevolucionesComponent } from './devoluciones/devoluciones.component';
     SelectorDeRmdComponent,
     CxcfacturasGridComponent,
     RmdPanelComponent,
-    DevolucionesComponent
+    DevolucionesComponent,
+    BonificacionesComponent
   ],
   entryComponents: [SelectorDeRmdComponent],
   providers: [DatePipe, CurrencyPipe]
