@@ -5,6 +5,7 @@ import { NotascxcPageComponent } from './notas/notascxc-page/notascxc-page.compo
 import { NotacxcCreatePageComponent } from 'app/cxc/notas/notacxc-create-page/notacxc-create-page.component';
 import { DevolucionesComponent } from 'app/cxc/notas/devoluciones/devoluciones.component';
 import { BonificacionesComponent } from 'app/cxc/notas/bonificaciones/bonificaciones.component';
+import { CreditoPageComponent } from 'app/cxc/cartera/credito-page/credito-page.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
         path: 'notas/create',
         component: NotacxcCreatePageComponent,
         data: {tipoCartera: 'CRE'}
+      },
+      {
+        path: 'credito',
+        component: CreditoPageComponent
       }
     ]
   }

@@ -35,19 +35,21 @@
 </mat-card> -->
 <mat-card> 
     <nav mat-tab-nav-bar>
-      <a mat-tab-link
+      <a mat-tab-link dynamicHeight="true"
           [routerLink]="['devoluciones']"
           routerLinkActive #rla="routerLinkActive"
           [active]="rla.isActive">
         Devoluciones
       </a>
-      <a mat-tab-link
+      <a mat-tab-link 
           [routerLink]="['bonificaciones']"
           routerLinkActive #rla="routerLinkActive"
           [active]="rla.isActive">
         Bonificaciones
       </a>
     </nav>
-      
-    <router-outlet></router-outlet>
+    <div >
+        <router-outlet></router-outlet>
+    </div>
+    
 </mat-card>

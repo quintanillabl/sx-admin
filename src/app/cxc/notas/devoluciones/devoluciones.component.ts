@@ -19,16 +19,17 @@ export class DevolucionesComponent implements OnInit {
 
   procesando = false
 
-  pendientes = true;
+  private _pendientes = true;
   cartera = 'CRE';
 
   columns: ITdDataTableColumn[] = [
+    {name: 'documento', label: 'RMD',sortable: true, numeric: true, width: 70},
+    {name: 'nota', label: 'Nota',sortable: true,nested: true, hidden: !this.pendientes, numeric: true, width: 150},
+    {name: 'fecha', label: 'Fecha', width: 100, format: (date) => this.datePipe.transform(date, 'dd/MM/yyyy')},
     {name: 'sucursal.nombre', label: 'Sucursal', numeric: false, nested: true, width: 150},
     {name: 'venta.cliente.nombre', label: 'Cliente', numeric: false, width: 300},
-    {name: 'documento', label: 'RMD',sortable: true, numeric: true, width: 70},
-    {name: 'fecha', label: 'Fecha', width: 100, format: (date) => this.datePipe.transform(date, 'dd/MM/yyyy')},
     {name: 'factura', label: 'Factura', numeric: true, width: 100},
-    {name: 'cobro.fecha', label: 'Atendida', nested: true, numeric: false, width: 100, format: (date) => this.datePipe.transform(date, 'dd/MM/yyyy')},
+    {name: 'cobro.fecha', label: 'Atendida', nested: true, numeric: false, hidden: true, width: 100, format: (date) => this.datePipe.transform(date, 'dd/MM/yyyy')},
     {name: 'total', label: 'Total', numeric: true, format: (value)=> this.currencyPipe.transform(value, 'USD')}
   ];
 
@@ -59,7 +60,7 @@ export class DevolucionesComponent implements OnInit {
 
   load() {
     this.service
-    .buscarRmd()
+    .buscarRmd({pendientes:this.pendientes})
     .subscribe( res => {
       this.data = res;
       this.filteredData = res;
@@ -120,6 +121,14 @@ export class DevolucionesComponent implements OnInit {
     newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
     newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
+  }
+
+  get pendientes() {
+    return this._pendientes;
+  }
+  set pendientes(val) {
+    this._pendientes = val;
+    this.load();
   }
 
 }

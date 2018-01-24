@@ -15,6 +15,12 @@ export class CxcPageComponent implements OnInit {
       description: 'Bonificaciones y Devoluciones',
       icon: 'repeat'
     },
+    {
+      path: 'credito',
+      title: 'Crédito',
+      description: 'Cartera de crédito ',
+      icon: 'group'
+    },
   ];
 
   constructor(

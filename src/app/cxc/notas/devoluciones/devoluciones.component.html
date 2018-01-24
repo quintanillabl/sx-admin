@@ -38,7 +38,25 @@
   [(ngModel)]="selectedRows"
   [sortOrder]="sortOrder"
   (sortChange)="sort($event)"
-  [style.height.px]="300">
+  [style.height.px]="420">
+  <ng-template tdDataTableTemplate="documento" let-value="value" let-row="row">
+    <span class="tc-indigo-800" [routerLink]="['show', row.id]">
+      {{value}}
+    </span>
+  </ng-template>
+  <ng-template tdDataTableTemplate="nota" let-value="value" let-row="row">
+    <div layout layout-align="center" class="pad-left" *ngIf="value">
+      <a mat-button [routerLink]="['show', row.id]" color="accent" flex >
+        <span>{{value?.serie}}</span>
+        <span>{{value?.folio}}</span>
+        <mat-icon color="accent" *ngIf="value.cfdi" >notifications</mat-icon>
+        <mat-icon color="warning"*ngIf="!value.cfdi" matTooltip="Pendiente de timbrado">notifications_off</mat-icon>
+      </a>
+    </div>
+    <!-- <span layout *ngIf="value"  [routerLink]="['show', row.id]" >
+      
+    </span> -->
+  </ng-template>
 </td-data-table>
 <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
   <h3>No hay regisros.</h3>
