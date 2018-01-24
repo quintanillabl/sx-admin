@@ -4,21 +4,22 @@ import { Observable } from "rxjs/Observable";
 import * as _ from 'lodash';
 
 import { environment } from 'environments/environment';
+import { ConfigService } from 'app/_core/services/config.service';
 
-// import { ConfigService } from 'app/core/services/config.service';
+
 
 @Injectable()
 export class NotascxcService {
 
-  //private apiUrl: string;  // 
-  private apiUrl = environment.apiUrl + '/cxc/notas';
+  private apiUrl: string;  
+  // private apiUrl = environment.apiUrl + '/cxc/notas';
   
   constructor(
     private http: HttpClient,
-    //private configService: ConfigService
+    private configService: ConfigService
   ) 
   {
-    //this.apiUrl = configService.buildApiUrl('compras/recepciones');
+    this.apiUrl = configService.buildApiUrl('cxc/notas');
   }
   
   get(id: string): Observable<any> {
@@ -39,10 +40,18 @@ export class NotascxcService {
     _.forIn(filtro, (value, key) =>{
       params = params.set(key,value);
     });
-    return this.http.get<any>(this.apiUrl, {params: params});
+    const url = this.apiUrl + '/buscarRmd';
+    return this.http.get<any>(url, {params: params});
   }
   
-  
+  save(nota) {
+    nota.cliente = { id: nota.cliente.id}
+    let params = new HttpParams();
+    if (nota.devolucion){
+      params = params.set('devolucion', nota.devolucion.id);
+    }
+    return this.http.post(this.apiUrl, nota, {params: params});
+  }
 
   /*
   print(com: RecepcionDeCompra) {

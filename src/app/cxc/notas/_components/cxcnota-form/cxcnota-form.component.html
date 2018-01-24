@@ -1,30 +1,27 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate layout >
   
   <mat-card tabindex="0" flex = "50" >
-
-    <mat-card-title-group>
-      <mat-card-title>Alta de nota de credito</mat-card-title>
-      <mat-card-subtitle>
-        <span layout>
-          <span >{{fecha | date:'dd/MM/yyyy'}}</span>
-          <span flex></span>
-          <span class="pad-leftt tc-indigo-800" >Cartera: {{cartera}}</span>
-        </span>
-      </mat-card-subtitle>
-    </mat-card-title-group>
+    <div layout="row" layout-align="start center" class="pad" >
+      <span  class="push-left-sm">
+        <span class="mat-title">Alta de nota de credito</span>
+      </span>
+      <span flex></span>
+      <span >({{fecha | date:'dd/MM/yyyy'}})</span>
+      <span class="pad-left tc-indigo-800" >Cartera: {{cartera}}</span>
+    </div>
+    
+    <mat-divider></mat-divider>
 
     <mat-card-content>
-
       <div layout >
         <sx-cliente-field formControlName="cliente" flex></sx-cliente-field>
       </div>
-      
       <div layout >
         <mat-form-field class="pad-right" flex="60">
           <mat-select placeholder="Tipo" formControlName="tipo">
-            <mat-option *ngFor="let tipo of ['BONIFICACION','DEVOLUCION']" 
-              [value]="tipo">
-              {{ tipo }}
+            <mat-option *ngFor="let tipo of [{descripcion:'BONIFICACION', clave: 'BON'},{clave: 'DEV', descripcion:'DEVOLUCION'}]" 
+              [value]="tipo.clave">
+              {{ tipo.descripcion }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -80,6 +77,7 @@
       
     </mat-card-content>
 
+    <ng-template tdLoading [tdLoadingUntil]="!procesando" tdLoadingStrategy="overlay" tdLoadingType="circular">
     <mat-card-actions>
       <button mat-button type="submit" color="primary" 
         [disabled]="form.invalid || form.pristine">
@@ -89,13 +87,10 @@
         <mat-icon>back</mat-icon> CANCELAR
       </button>
     </mat-card-actions>
-  
+    </ng-template>
   </mat-card>
   
-  <sx-cxcfacturas-grid flex ="50" [parent]="form" *ngIf="tipo == 'BONIFICACION'"></sx-cxcfacturas-grid>
-  <sx-rmd-panel flex="50" [parent]="form" *ngIf="tipo == 'DEVOLUCION'"></sx-rmd-panel>
+  <sx-cxcfacturas-grid flex ="50" [parent]="form" *ngIf="tipo == 'BON'"></sx-cxcfacturas-grid>
+  <sx-rmd-panel flex="50" [parent]="form" *ngIf="tipo == 'DEV'"></sx-rmd-panel>
   
 </form>
-<!-- <pre>
-  {{form.value | json}}
-</pre> -->

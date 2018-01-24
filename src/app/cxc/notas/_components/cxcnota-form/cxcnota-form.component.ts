@@ -18,17 +18,19 @@ export class CxcnotaFormComponent implements OnInit, OnDestroy {
 
   clientes$: Observable<Array<any>>;
 
-  @Input() cartera = 'CRE';
+  @Input() cartera = 'NO';
 
   @Output() cancelar = new EventEmitter();
 
   @Output() save = new EventEmitter<any>();
 
   @Output() search = new EventEmitter<any>();
+
+  @Input() procesando = false;
   
   destroy$ = new Subject<boolean>();
 
-  
+  devolucionRmd: any;
 
   constructor(
     private fb: FormBuilder
@@ -47,7 +49,8 @@ export class CxcnotaFormComponent implements OnInit, OnDestroy {
       descuento: [{value: 0.0, disabled: true}, [Validators.min(0), Validators.max(99.99)]],
       sinReferencia: false,
       comentario: [''],
-      referencias: this.fb.array([])
+      referencias: this.fb.array([]),
+      devolucion: null,
     }, {validator: CxcnotaValidator});
   }
 
@@ -76,7 +79,6 @@ export class CxcnotaFormComponent implements OnInit, OnDestroy {
         }
       });
   }
-  
 
   private notaDeDevolucion() {
     this.form.get('sinReferencia').disable();
@@ -100,7 +102,6 @@ export class CxcnotaFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log('Salvando nota: ', this.form.value);
     if (this.form.valid) {
       this.save.emit(this.prepareEntity())
     }
@@ -108,6 +109,8 @@ export class CxcnotaFormComponent implements OnInit, OnDestroy {
 
   private prepareEntity() {
     const res = {...this.form.value};
+    res.tipoCartera = this.cartera;
+    return res
   }
 
   get fecha() {
@@ -120,14 +123,6 @@ export class CxcnotaFormComponent implements OnInit, OnDestroy {
 
   get referencias() {
     return this.form.get('referencias').value as FormArray;
-  }
-
-  get requiereReferencia() {
-    if (this.tipo == 'DEVOLUCION') {
-      return true;
-    } else if (this.tipo == 'BONIFICACION'){
-      return this.form.get('sinReferencia').value ? false : true;
-    }
   }
 
 }

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CxcPageComponent } from './cxc-page/cxc-page.component';
 import { NotascxcPageComponent } from './notas/notascxc-page/notascxc-page.component';
 import { NotacxcCreatePageComponent } from 'app/cxc/notas/notacxc-create-page/notacxc-create-page.component';
+import { DevolucionesComponent } from 'app/cxc/notas/devoluciones/devoluciones.component';
 
 const routes: Routes = [
   {
@@ -11,11 +12,15 @@ const routes: Routes = [
     children: [
       {
         path: 'notas',
-        component: NotascxcPageComponent
+        component: NotascxcPageComponent,
+        children: [
+          {path: 'devoluciones', component: DevolucionesComponent}
+        ]
       },
       {
         path: 'notas/create',
-        component: NotacxcCreatePageComponent
+        component: NotacxcCreatePageComponent,
+        data: {tipoCartera: 'CRE'}
       }
     ]
   }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { DatePipe, CurrencyPipe } from '@angular/common';
 
 import { NotascxcPageComponent } from './notascxc-page/notascxc-page.component';
 import { SharedModule } from 'app/_shared/shared.module';
@@ -12,6 +13,8 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
 import { SelectorDeRmdComponent } from './_components/selector-de-rmd/selector-de-rmd.component';
 import { CxcfacturasGridComponent } from './_components/cxcnota-form/cxcfacturas-grid/cxcfacturas-grid.component';
 import { RmdPanelComponent } from './_components/cxcnota-form/rmd-panel/rmd-panel.component';
+import { DevolucionesComponent } from './devoluciones/devoluciones.component';
+
 
 @NgModule({
   imports: [
@@ -20,6 +23,17 @@ import { RmdPanelComponent } from './_components/cxcnota-form/rmd-panel/rmd-pane
     RouterModule.forChild([]),
     CurrencyMaskModule,
   ],
-  declarations: [NotascxcPageComponent, NotacxcCreatePageComponent, CxcnotasGridComponent, CxcnotaFormComponent, SelectorDeRmdComponent, CxcfacturasGridComponent, RmdPanelComponent]
+  declarations: [
+    NotascxcPageComponent,
+    NotacxcCreatePageComponent,
+    CxcnotasGridComponent,
+    CxcnotaFormComponent,
+    SelectorDeRmdComponent,
+    CxcfacturasGridComponent,
+    RmdPanelComponent,
+    DevolucionesComponent
+  ],
+  entryComponents: [SelectorDeRmdComponent],
+  providers: [DatePipe, CurrencyPipe]
 })
 export class NotasModule { }

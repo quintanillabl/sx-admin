@@ -44,7 +44,7 @@ export class ConfigService {
     promise.then(config => {
       this.config = config;     // <--- THIS RESOLVES AFTER
       // this.store.dispatch(new SetSucursalSuccessAction(config));
-      // console.log(this.config);
+      console.log('AppConfig inicializada: ', this.config);
     });
     return promise;
   }

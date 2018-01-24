@@ -1,6 +1,8 @@
 <div layout >
-  <sx-cxcnota-form flex
-    (save)="onSave($event)"
-    (cancelar)="onCancelar()">
-  </sx-cxcnota-form>
-</div>
+    <sx-cxcnota-form flex 
+      (save)="onSave($event)"
+      (cancelar)="onCancelar()"
+      [cartera]="tipoCartera"
+      [procesando]="procesando">
+    </sx-cxcnota-form>
+  </div>

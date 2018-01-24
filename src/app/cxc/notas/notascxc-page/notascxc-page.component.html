@@ -1,4 +1,4 @@
-<mat-card layout="row" >
+<!-- <mat-card layout="row" >
   <div layout="row" layout-align="start center" class="pad-left pad-right">
     <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
       <span class="mat-title">Notas de crédito</span>
@@ -32,4 +32,22 @@
   
   <sx-cxcnotas-grid [data]="filteredData"></sx-cxcnotas-grid>
   
+</mat-card> -->
+<mat-card> 
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link
+          [routerLink]="['devoluciones']"
+          routerLinkActive #rla="routerLinkActive"
+          [active]="rla.isActive">
+        Devoluciones
+      </a>
+      <a mat-tab-link
+          [routerLink]="['devoluciones']"
+          routerLinkActive #rla="routerLinkActive"
+          [active]="rla.isActive">
+        Bonificaciones
+      </a>
+    </nav>
+      
+    <router-outlet></router-outlet>
 </mat-card>
