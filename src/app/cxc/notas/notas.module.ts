@@ -15,6 +15,12 @@ import { CxcfacturasGridComponent } from './_components/cxcnota-form/cxcfacturas
 import { RmdPanelComponent } from './_components/cxcnota-form/rmd-panel/rmd-panel.component';
 import { DevolucionesComponent } from './devoluciones/devoluciones.component';
 import { BonificacionesComponent } from './bonificaciones/bonificaciones.component';
+import { NotaViewComponent } from './_components/nota-view/nota-view.component';
+import { BonificacionFormComponent } from './_components/bonificacion-form/bonificacion-form.component';
+import { FacturasSelectorComponent } from './_components/facturas-selector/facturas-selector.component';
+import { FacturasSelectorBtnComponent } from './_components/facturas-selector/facturas-selector-btn/facturas-selector-btn.component';
+import { BonificacionesCreateComponent } from './bonificaciones/bonificaciones-create.component';
+import { BonificacionPartidasComponent } from './_components/bonificacion-form/bonificacion-partidas/bonificacion-partidas.component';
 
 
 @NgModule({
@@ -33,9 +39,16 @@ import { BonificacionesComponent } from './bonificaciones/bonificaciones.compone
     CxcfacturasGridComponent,
     RmdPanelComponent,
     DevolucionesComponent,
-    BonificacionesComponent
+    BonificacionesComponent,
+    NotaViewComponent,
+    BonificacionFormComponent,
+    FacturasSelectorComponent,
+    FacturasSelectorBtnComponent,
+    BonificacionesCreateComponent,
+    BonificacionPartidasComponent,
+    
   ],
-  entryComponents: [SelectorDeRmdComponent],
+  entryComponents: [SelectorDeRmdComponent, FacturasSelectorComponent],
   providers: [DatePipe, CurrencyPipe]
 })
 export class NotasModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe, CurrencyPipe } from '@angular/common';
+import { Observable } from 'rxjs/Observable';
 
 import { ITdDataTableColumn, TdDataTableSortingOrder,  } 
 from '@covalent/core/data-table/data-table.component';
@@ -9,6 +10,8 @@ import { TdDataTableService } from '@covalent/core/data-table/services/data-tabl
 import { IPageChangeEvent } from '@covalent/core/paging/paging-bar.component';
 import { NotascxcService } from 'app/cxc/services/notascxc.service';
 import { TdDialogService } from '@covalent/core';
+import { TdLoadingService } from '@covalent/core/loading/services/loading.service';
+
 
 @Component({
   selector: 'sx-devoluciones',
@@ -51,7 +54,8 @@ export class DevolucionesComponent implements OnInit {
     private currencyPipe: CurrencyPipe,
     private _dataTableService: TdDataTableService,
     private service: NotascxcService,
-    private dialogService: TdDialogService
+    private dialogService: TdDialogService,
+    private loadingService: TdLoadingService
   ) { }
 
   ngOnInit() {
@@ -59,13 +63,18 @@ export class DevolucionesComponent implements OnInit {
   }
 
   load() {
+    this.loadingService.register('procesando');
     this.service
     .buscarRmd({pendientes:this.pendientes})
+    .do( () => this.procesando = true)
+    .catch( error => this.handelError2(error))
+    .finally( () => this.loadingService.resolve('procesando'))
+    //.delay(3000)
     .subscribe( res => {
       this.data = res;
       this.filteredData = res;
       this.filteredTotal = res.length;
-      console.log('Pendientes: ', res);
+      // console.log('Pendientes: ', res);
     });
   }
 
@@ -84,14 +93,36 @@ export class DevolucionesComponent implements OnInit {
       });
       ref.afterClosed().subscribe(val => {
         if (val) {
-          this.service.generarNotaDeDevolucion(this.selectedRows[0], this.cartera)
-          .subscribe(
-            res => console.log('Notas generadas: ', res),
-            error => console.log('Error generando notas de rmd: ', error)
-          );
+          this.generarNota(this.selectedRows[0]);
         }
       });
     }
+  }
+
+  generarNota(nota) {
+    this.service.generarNotaDeDevolucion(nota, this.cartera)
+    .do( () => this.procesando = true)
+    .delay(3000)
+    .catch( error=> this.handelError2(error))
+    .finally( ()=> this.procesando = false)
+    .subscribe(
+      res => {
+        console.log('Notas generadas: ', res);
+        // this.timbrar(nota)
+      }
+    );
+  }
+
+  timbrar(nota) {
+    this.loadingService.register('procesando')
+    this.service
+    .timbrar(nota)
+    .finally( ()=> this.loadingService.resolve('procesando'))
+    .catch( error=> this.handelError2(error))
+    .subscribe( res => {
+      console.log('Nota timbrada: ', res);
+      // this.pendientes = false
+    })
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -129,6 +160,16 @@ export class DevolucionesComponent implements OnInit {
   set pendientes(val) {
     this._pendientes = val;
     this.load();
+  }
+
+  handelError2(response) {
+    const message = response.error ? response.error.message : 'Error en servidor'
+    const ref = this.dialogService.openAlert({
+      title: `Error ${response.status}`,
+      message: message,
+      closeButton: 'Cerrar'
+    });
+    return Observable.empty();
   }
 
 }

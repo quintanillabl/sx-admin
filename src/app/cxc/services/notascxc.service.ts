@@ -44,10 +44,24 @@ export class NotascxcService {
     return this.http.get<any>(url, {params: params});
   }
 
+  buscarFacturasPendientes(filtro?): Observable<any> {
+    let params = new HttpParams();
+    _.forIn(filtro, (value, key) =>{
+      params = params.set(key,value);
+    });
+    const url = this.apiUrl + '/buscarFacturasPendientes';
+    return this.http.get<any>(url, {params: params});
+  }
+
   generarNotaDeDevolucion(rmd, cartera) {
     const params = new HttpParams().set('cartera', cartera);
     const url = `${this.apiUrl}/generarConRmd/${rmd.id}`
     return this.http.post(url, {}, { params: params});
+  }
+
+  timbrar(nota) {
+    const url = `${this.apiUrl}/timbrar/${nota.id}`
+    return this.http.post(url, {});
   }
   
   save(nota) {
@@ -59,9 +73,8 @@ export class NotascxcService {
     return this.http.post(this.apiUrl, nota, {params: params});
   }
 
-  /*
-  print(com: RecepcionDeCompra) {
-    const url = `${this.apiUrl}/print/${com.id}`;
+  print(nota) {
+    const url = `${this.apiUrl}/print/${nota.id}`;
     const headers = new HttpHeaders().set('Content-type' , 'application/pdf');
     return this.http.get(
       url, {
@@ -70,6 +83,21 @@ export class NotascxcService {
       }
     );
   }
+
+  mostrarXml(nota): Observable<any> {
+    const endpoint = `cfdis/mostrarXml/${nota.cfdi.id}`;
+    const url = this.configService.buildApiUrl(endpoint);
+    const headers = new HttpHeaders().set('Content-type' , 'text/xml');
+    return this.http.get(
+      url, {
+        headers: headers,
+        responseType: 'blob'
+      }
+    );
+  }
+
+  /*
+  
   
   recepcionDeMercancia(fecha: Date) {
     const url = `${this.apiUrl}/recepcionDeMercancia/`;

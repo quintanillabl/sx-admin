@@ -1,4 +1,6 @@
-<div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+
+<div *tdLoading="'procesando'; type:'linar'; mode:'indeterminate'; strategy:'overlay'; color:'primary'"
+  layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
   <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
     <span class="mat-title">Devoluciones {{pendientes ? 'por atender': 'atendidas'}}</span>
   </span>
@@ -32,7 +34,7 @@
   [columns]="columns"
   [selectable]="selectable"
   [clickable]="false"
-  [multiple]="true"
+  [multiple]="false"
   [sortable]="true"
   [sortBy]="sortBy"
   [(ngModel)]="selectedRows"
@@ -46,7 +48,7 @@
   </ng-template>
   <ng-template tdDataTableTemplate="nota" let-value="value" let-row="row">
     <div layout layout-align="center" class="pad-left" *ngIf="value">
-      <a mat-button [routerLink]="['show', row.id]" color="accent" flex >
+      <a mat-button [routerLink]="['show', value.id]" color="accent" flex >
         <span>{{value?.serie}}</span>
         <span>{{value?.folio}}</span>
         <mat-icon color="accent" *ngIf="value.cfdi" >notifications</mat-icon>
@@ -70,3 +72,4 @@
   </mat-select>
   {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
 </td-paging-bar>
+
