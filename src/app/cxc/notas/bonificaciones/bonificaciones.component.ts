@@ -8,6 +8,7 @@ import { TdDialogService } from '@covalent/core';
 import { TdLoadingService } from '@covalent/core/loading/services/loading.service';
 
 import { NotascxcService } from 'app/cxc/services/notascxc.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 @Component({
@@ -20,19 +21,23 @@ export class BonificacionesComponent implements OnInit {
   cartera = 'CRE';
 
   columns: ITdDataTableColumn[] = [
-    {name: 'seria', label: 'Serie',sortable: true, numeric: true, width: 70},
-    {name: 'folio', label: 'Folio',sortable: true,nested: true, numeric: true, width: 150},
+    {name: 'serie', label: 'Serie',sortable: true, numeric: true, width: 70},
+    {name: 'folio', label: 'Folio',sortable: true,nested: true, numeric: true, width: 100},
     {name: 'fecha', label: 'Fecha', width: 100, format: (date) => this.datePipe.transform(date, 'dd/MM/yyyy')},
     {name: 'cliente.nombre', label: 'Cliente', numeric: false, nested: true, width: 300},
-    {name: 'sucursal.nombre', label: 'Sucursal', numeric: false, nested: true, width: 150},
-    {name: 'timbrado', label: 'Timbrado', numeric: false, width: 70},
-    {name: 'total', label: 'Total', numeric: true, format: (value)=> this.currencyPipe.transform(value, 'USD')}
+    // {name: 'sucursal.nombre', label: 'Sucursal', numeric: false, nested: true, width: 150},
+    {name: 'timbrado', label: 'Timbrado', numeric: false, width: 100},
+    {name: 'total', label: 'Total', numeric: true, format: (value)=> this.currencyPipe.transform(value, 'USD')},
+    {name: 'disponible', label: 'Disponible', numeric: true, format: (value)=> this.currencyPipe.transform(value, 'USD')}
   ];
 
   data: any[] = []; 
   filteredData: any[] = this.data;
   sortBy: string = 'folio';
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
+  
+  notas$: Observable<any[]>;
+  search$ = new BehaviorSubject<string>('');
 
   constructor(
     private datePipe: DatePipe,
@@ -41,26 +46,39 @@ export class BonificacionesComponent implements OnInit {
     private dialogService: TdDialogService,
     private loadingService: TdLoadingService,
     private service: NotascxcService,
-  ) { }
+  ) { 
+    this.notas$ = this.search$.debounceTime(400)
+      .switchMap( term => {
+        return this.service
+        .list({term: term, tipo: 'BONIFICACION'})
+        .catch( error => this.handelError2(error))
+      });
+    // this.notas$.subscribe(data => console.log('Data: ', data));
+  }
 
   ngOnInit() {
+    this.load();
   }
 
   search(term){
-
+    this.search$.next(term);
   }
+
   load(){
+    this.search$.next('');
+    /*
     this.loadingService.register('procesando');
     this.service
-    .list()
+    .list({tipo: 'BONIFICACION'})
     .catch( error => this.handelError2(error))
     .finally( () => this.loadingService.resolve('procesando'))
     //.delay(3000)
     .subscribe( res => {
       this.data = res;
       this.filteredData = res;
-      // console.log('Pendientes: ', res);
+      console.log('Pendientes: ', res);
     });
+    */
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {

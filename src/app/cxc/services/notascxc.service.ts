@@ -32,7 +32,7 @@ export class NotascxcService {
     _.forIn(filtro, (value, key) =>{
       params = params.set(key,value);
     });
-    return this.http.get<any>(this.apiUrl, {params: params})
+    return this.http.get<any>(this.apiUrl, {params: params}).shareReplay()
   }
 
   buscarRmd(filtro?): Observable<any> {

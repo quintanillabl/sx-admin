@@ -8,6 +8,7 @@ import { BonificacionesComponent } from 'app/cxc/notas/bonificaciones/bonificaci
 import { CreditoPageComponent } from 'app/cxc/cartera/credito-page/credito-page.component';
 import { NotaViewComponent } from 'app/cxc/notas/_components/nota-view/nota-view.component';
 import { BonificacionesCreateComponent } from 'app/cxc/notas/bonificaciones/bonificaciones-create.component';
+import { ClientePageComponent } from 'app/cxc/cartera/cliente-page/cliente-page.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,9 @@ const routes: Routes = [
             path: 'bonificaciones/create',
             component: BonificacionesCreateComponent,
             data: {tipoCartera: 'CRE'}
+          }, {
+            path: 'bonificaciones/show/:id',
+            component: NotaViewComponent
           }
         ]
       },
@@ -36,8 +40,15 @@ const routes: Routes = [
       {
         path: 'credito',
         component: CreditoPageComponent
+      },
+      {
+        path: ''
       }
     ]
+  },
+  {
+    path: 'cliente/:id',
+    component: ClientePageComponent
   }
 ];
 

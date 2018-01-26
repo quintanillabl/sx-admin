@@ -53,8 +53,9 @@ export class BonificacionesCreateComponent implements OnInit {
       .finally( ()=> this.loadingService.resolve('procesando'))
       .catch( error2 =>  this.handelError2(error2))
       .subscribe( 
-        res => {
+        (res: any) => {
           console.log('Nota persistida: ', res);
+          this.router.navigate(['cxc/notas/bonificaciones/show', res.id])
         });
         
   }

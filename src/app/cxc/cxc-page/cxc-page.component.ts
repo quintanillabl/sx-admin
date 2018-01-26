@@ -17,7 +17,7 @@ export class CxcPageComponent implements OnInit {
     },
     {
       path: 'credito',
-      title: 'Crédito',
+      title: 'Clientes',
       description: 'Cartera de crédito ',
       icon: 'group'
     },

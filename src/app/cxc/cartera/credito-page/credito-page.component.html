@@ -1,3 +1,22 @@
-<p>
-  credito-page works!
-</p>
+<mat-card *tdLoading="let items until clientes$ | async; type: 'circle'; color: 'accent' strategy: 'overlay'">
+  <mat-card-title-group>
+    <mat-card-title>Cartera de clientes</mat-card-title>
+    <mat-card-subtitle>Crédito</mat-card-subtitle>
+    <button mat-icon-button (click)="load()"> <mat-icon>refresh</mat-icon></button>
+  </mat-card-title-group>
+  <mat-divider></mat-divider>
+
+  <ng-container *ngIf="clientes$ | async as clientes">
+    <td-data-table 
+      [columns]="columns" 
+      [data]="clientes" [style.height.px]="400">
+      <ng-template tdDataTableTemplate="nombre" let-value="value" let-row="row">
+        <a class="tc-indigo-800" [routerLink] = "['/cxc/cliente', row.id]">{{value}}</a>
+      </ng-template>
+    </td-data-table>
+  </ng-container>
+  
+  
+  
+
+</mat-card>

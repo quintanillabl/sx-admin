@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 import { CreditoPageComponent } from './credito-page/credito-page.component';
+import { SharedModule } from 'app/_shared/shared.module';
+import { ClientePageComponent } from './cliente-page/cliente-page.component';
+
 
 @NgModule({
   imports: [
-    CommonModule
+    SharedModule,
+    RouterModule.forChild([])
   ],
-  declarations: [CreditoPageComponent]
+  declarations: [CreditoPageComponent, ClientePageComponent]
 })
 export class CarteraModule { }

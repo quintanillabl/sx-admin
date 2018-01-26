@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DatePipe, CurrencyPipe } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 
@@ -11,6 +12,7 @@ import { IPageChangeEvent } from '@covalent/core/paging/paging-bar.component';
 import { NotascxcService } from 'app/cxc/services/notascxc.service';
 import { TdDialogService } from '@covalent/core';
 import { TdLoadingService } from '@covalent/core/loading/services/loading.service';
+
 
 
 @Component({
@@ -55,7 +57,8 @@ export class DevolucionesComponent implements OnInit {
     private _dataTableService: TdDataTableService,
     private service: NotascxcService,
     private dialogService: TdDialogService,
-    private loadingService: TdLoadingService
+    private loadingService: TdLoadingService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -106,8 +109,9 @@ export class DevolucionesComponent implements OnInit {
     .catch( error=> this.handelError2(error))
     .finally( ()=> this.procesando = false)
     .subscribe(
-      res => {
+      (res: any) => {
         console.log('Notas generadas: ', res);
+        this.router.navigate(['cxc/notas/bonificaciones/show', res.id])
         // this.timbrar(nota)
       }
     );

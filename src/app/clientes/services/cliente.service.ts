@@ -32,6 +32,14 @@ export class ClienteService {
     return this.http.get<Cliente[]>(this.apiUrl, {params: params})
   }
 
+  busarClientes(filtro?: any): Observable<Cliente[]> {
+    let params = new HttpParams();
+    _.forIn(filtro, (value, key) =>{
+      params = params.set(key,value);
+    });
+    return this.http.get<Cliente[]>(this.apiUrl, {params: params}).shareReplay();
+  }
+
   save(com: Cliente) {
     const params = new HttpParams().set('sucursal', this.sucursal.id);
     return this.http.post(this.apiUrl, com, {params: params});

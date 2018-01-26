@@ -74,9 +74,7 @@
           </sx-bonificacion-partidas>
           
         </mat-card-content>
-        
-        
-        <ng-template tdLoading [tdLoadingUntil]="!procesando" tdLoadingStrategy="overlay" tdLoadingType="circular">
+       
         <mat-card-actions>
           <button mat-button type="submit" color="primary" 
             [disabled]="form.invalid || form.pristine">
@@ -86,9 +84,8 @@
             <mat-icon>back</mat-icon> CANCELAR
           </button>
         </mat-card-actions>
-        </ng-template>
+       
       </div>
-          
 </form>
   
-<td-json-formatter [data]="form.value" ></td-json-formatter>
+
