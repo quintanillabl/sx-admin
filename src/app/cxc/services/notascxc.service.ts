@@ -66,11 +66,7 @@ export class NotascxcService {
   
   save(nota) {
     nota.cliente = { id: nota.cliente.id}
-    let params = new HttpParams();
-    if (nota.devolucion){
-      params = params.set('devolucion', nota.devolucion.id);
-    }
-    return this.http.post(this.apiUrl, nota, {params: params});
+    return this.http.post(this.apiUrl, nota);
   }
 
   print(nota) {

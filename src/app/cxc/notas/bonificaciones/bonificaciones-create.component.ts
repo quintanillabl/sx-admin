@@ -45,7 +45,7 @@ export class BonificacionesCreateComponent implements OnInit {
 
   onSave(nota) {
     console.log('Salvando nota: ', nota);
-    /*
+    
     this.loadingService.register('procesando');
     this.service
       .save(nota)
@@ -56,7 +56,7 @@ export class BonificacionesCreateComponent implements OnInit {
         res => {
           console.log('Nota persistida: ', res);
         });
-        */
+        
   }
 
   handelError2(response) {

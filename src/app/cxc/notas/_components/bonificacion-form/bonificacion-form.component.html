@@ -31,7 +31,7 @@
           <div layout >
             <mat-form-field class="pad-right" >
               <mat-select placeholder="Cálculo" formControlName="tipoDeCalculo">
-                <mat-option *ngFor="let c of ['PORCENTAJE','PRORRATEAR']" 
+                <mat-option *ngFor="let c of ['PORCENTAJE','PRORRATEO']" 
                   [value]="c">
                   {{ c }}
                 </mat-option>
@@ -63,16 +63,18 @@
             </mat-form-field>
             <span flex></span>
             <!-- <button mat-button> Agregar facturas <mat-icon>add</mat-icon></button> -->
-            <sx-facturas-selector-btn *ngIf="form.get('cliente').value !== null"
-            [cliente]="form.get('cliente').value"
-            (seleccionar)="agregarFacturas($event)">
+            <sx-facturas-selector-btn *ngIf="form.get('cliente').value !== null" #insertBtn
+              [cliente]="form.get('cliente').value"
+              (seleccionar)="agregarFacturas($event)">
             </sx-facturas-selector-btn>
           </div>
-    
-          
+          <sx-bonificacion-partidas 
+            [parent]="form" [partidas]="partidas.value" (delete)="onDeletePartida($event)">
+
+          </sx-bonificacion-partidas>
           
         </mat-card-content>
-        <sx-bonificacion-partidas [parent]="form"></sx-bonificacion-partidas>
+        
         
         <ng-template tdLoading [tdLoadingUntil]="!procesando" tdLoadingStrategy="overlay" tdLoadingType="circular">
         <mat-card-actions>
@@ -89,4 +91,4 @@
           
 </form>
   
-<td-json-formatter [data]="form.value"></td-json-formatter>
+<td-json-formatter [data]="form.value" ></td-json-formatter>

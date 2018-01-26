@@ -19,7 +19,7 @@ import { Observable } from 'rxjs/Observable';
 export class FacturasSelectorComponent implements OnInit {
 
   columns: ITdDataTableColumn[] = [
-    {name: 'sucursal.nombre', label: 'Sucursal', numeric: false, nested: true, width: 70},
+    {name: 'sucursal.nombre', label: 'Sucursal', numeric: false, nested: true, width: 120},
     {name: 'tipoDocumento', label: 'Tipo', numeric: true, width: 70},
     {name: 'documento', label: 'Factura', numeric: true, width: 70},
     {name: 'fecha', label: 'Fecha', width: 100, format: (date) => this.datePipe.transform(date, 'dd/MM/yyyy')},
