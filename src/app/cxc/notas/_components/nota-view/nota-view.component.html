@@ -28,6 +28,10 @@
       *ngIf="nota?.cfdi">
         <mat-icon>dvr</mat-icon>  Ver XML
     </button>
+    <button mat-button type="button" (click)="mandarPorCorreo(nota)" 
+      *ngIf="nota?.cfdi">
+        <mat-icon>email</mat-icon>  Email
+    </button>
   </mat-card-actions>
 
 </ng-container>

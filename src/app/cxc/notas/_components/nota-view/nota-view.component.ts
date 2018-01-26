@@ -30,6 +30,15 @@ export class NotaViewComponent implements OnInit {
     .subscribe(nota => this.nota = nota);
   }
 
+  reload() {
+    this.route.paramMap
+    .switchMap(params => {
+      console.log('Params: ', params);
+      return this.service.get(params.get('id'))
+    })
+    .subscribe(nota => this.nota = nota);
+  }
+
   print(nota) {
     // this.loadingService.register('procesando');
     this.service.print(nota)
@@ -46,13 +55,15 @@ export class NotaViewComponent implements OnInit {
 
   timbrar(nota) {
     console.log('Timbrando: ', nota);
+    
     this.loadingService.register('procesando');
     if(!nota.cfdi) {
       this.service.timbrar(nota)
       .catch( error2 => this.handelError2(error2))
       .finally( () => this.loadingService.resolve('procesando'))
       .subscribe(res => {
-        console.log('Nota timbrada: ', res)
+        console.log('Nota timbrada: ', res);
+        this.reload();
       });
     }
   }
@@ -68,6 +79,32 @@ export class NotaViewComponent implements OnInit {
       });
   }
 
+  mandarPorCorreo(nota): void {
+    this.dialogService.openPrompt({
+      message: 'Mandar la Cfdi (PDF y XML) al clente',
+      disableClose: true,
+      title: 'Email',
+      value: nota.cliente.cfdiMail,
+      cancelButton: 'Cancelar',
+      acceptButton: 'Enviar',
+    }).afterClosed().subscribe((newValue: string) => {
+      if (newValue) {
+        this.doEmil(nota, newValue);
+      }
+    });
+  }
+
+  doEmil(nota, target: string) {
+    this.loadingService.register('procesando')
+    this.service.enviarPorEmail(nota.cfdi, target)
+      .finally( () => this.loadingService.resolve('procesando'))
+      .catch( error2 => this.handelError2(error2))
+      .subscribe( (val: any) => {
+        console.log('Val: ', val);
+        this.toast({message:'Factura enviada a: ' + val.target, title: 'Envio de facturas'});
+      });
+  }
+
   handelError2(response) {
     const message = response.error ? response.error.message : 'Error en servidor'
     const ref = this.dialogService.openAlert({
@@ -76,6 +113,10 @@ export class NotaViewComponent implements OnInit {
       closeButton: 'Cerrar'
     });
     return Observable.empty();
+  }
+
+  toast(data?:{}){
+
   }
 
 

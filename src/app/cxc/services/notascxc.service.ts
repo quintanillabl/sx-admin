@@ -92,22 +92,12 @@ export class NotascxcService {
     );
   }
 
-  /*
-  
-  
-  recepcionDeMercancia(fecha: Date) {
-    const url = `${this.apiUrl}/recepcionDeMercancia/`;
-    const params = new HttpParams().set('fecha', fecha.toISOString())
-    const headers = new HttpHeaders().set('Content-type' , 'application/pdf');
-    return this.http.get(
-      url, {
-        headers: headers,
-        responseType: 'blob',
-        params: params
-      },
-    );
+  enviarPorEmail(cfdi, target: string): Observable<any> {
+    const endpoint = `cfdis/enviarEmail/${cfdi.id}`;
+    const params = new HttpParams().set('target', target);
+    const url = this.configService.buildApiUrl(endpoint);
+    return this.http.put(url, {}, {params: params});
   }
-  */
 
 }
 
