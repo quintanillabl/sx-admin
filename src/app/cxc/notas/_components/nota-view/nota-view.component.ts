@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
 import { ActivatedRoute } from '@angular/router';
 import { NotascxcService } from 'app/cxc/services/notascxc.service';
 import { TdLoadingService } from '@covalent/core/loading/services/loading.service';
 import { TdDialogService } from '@covalent/core';
-import { Observable } from 'rxjs/Observable';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'sx-nota-view',
@@ -18,7 +20,8 @@ export class NotaViewComponent implements OnInit {
     private route: ActivatedRoute,
     private service: NotascxcService,
     private loadingService: TdLoadingService,
-    private dialogService: TdDialogService
+    private dialogService: TdDialogService,
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -101,7 +104,7 @@ export class NotaViewComponent implements OnInit {
       .catch( error2 => this.handelError2(error2))
       .subscribe( (val: any) => {
         console.log('Val: ', val);
-        this.toast({message:'Factura enviada a: ' + val.target, title: 'Envio de facturas'});
+        this.toast('Factura enviada a: ' + val.target, '');
       });
   }
 
@@ -115,8 +118,10 @@ export class NotaViewComponent implements OnInit {
     return Observable.empty();
   }
 
-  toast(data?:{}){
-
+  toast(message: string, action: string){
+    this.snackbar.open(message, action, {
+      duration: 5000
+    });
   }
 
 
