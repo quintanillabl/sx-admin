@@ -6,7 +6,7 @@ import {
   MatSlideToggleModule, MatInputModule, MatCheckboxModule,
   MatToolbarModule, MatSnackBarModule, MatSidenavModule, MatDialogModule,
   MatTabsModule, MatSelectModule, MatChipsModule, MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule, MatExpansionModule
 } from '@angular/material';
 
 const MATERIAL_MODULES: any[] = [
@@ -15,7 +15,9 @@ const MATERIAL_MODULES: any[] = [
   MatSlideToggleModule, MatInputModule, MatCheckboxModule,
   MatToolbarModule, MatSnackBarModule, MatSidenavModule,
   MatTabsModule, MatSelectModule, MatChipsModule, MatAutocompleteModule,
-  MatNativeDateModule, MatDatepickerModule, MatProgressSpinnerModule, MatDialogModule
+  MatNativeDateModule, MatDatepickerModule,
+  MatProgressSpinnerModule, MatDialogModule,
+  MatExpansionModule
 ];
 /**
  * Special module to controll Material desing modules

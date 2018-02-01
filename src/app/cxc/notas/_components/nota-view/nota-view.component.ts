@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NotascxcService } from 'app/cxc/services/notascxc.service';
 import { TdLoadingService } from '@covalent/core/loading/services/loading.service';
 import { TdDialogService } from '@covalent/core';
@@ -18,6 +18,7 @@ export class NotaViewComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private service: NotascxcService,
     private loadingService: TdLoadingService,
     private dialogService: TdDialogService,
@@ -82,6 +83,30 @@ export class NotaViewComponent implements OnInit {
       });
   }
 
+  aplicar(nota) {
+    if(nota.disponible <= 0.0) {
+      return
+    }
+    this.dialogService.openConfirm({
+      message: ` Aplicar el disponible: ${nota.disponible} a las facturas relacionadas` ,
+      title: `Apliación de nota: ${nota.documento}`,
+      acceptButton: 'Aceptar',
+      cancelButton: 'Cancelar'
+    }).afterClosed().subscribe( res => {
+      if (res) {
+        this.loadingService.register('procesando');
+        this.service.aplicar(nota)
+        .catch( error2 => this.handelError2(error2))
+        .finally( () => this.loadingService.resolve('procesando'))
+        .subscribe(res => {
+          console.log('Nota aplicada: ', res);
+          this.reload();
+        });
+      }
+    });
+    
+  }
+
   mandarPorCorreo(nota): void {
     this.dialogService.openPrompt({
       message: 'Mandar la Cfdi (PDF y XML) al clente',
@@ -123,6 +148,30 @@ export class NotaViewComponent implements OnInit {
       duration: 5000
     });
   }
+
+  delete(nota) {
+    if(nota.cfdi ) {
+      return
+    }
+    this.dialogService.openConfirm({
+      message: ` Eliminar la nota: ${nota.documento}` ,
+      title: `Elminación de nota de credito`,
+      acceptButton: 'Aceptar',
+      cancelButton: 'Cancelar'
+    }).afterClosed().subscribe( res => {
+      if (res) {
+        this.loadingService.register('procesando');
+        this.service.delete(nota.id)
+        .catch( error2 => this.handelError2(error2))
+        .finally( () => this.loadingService.resolve('procesando'))
+        .subscribe(res => {
+          this.router.navigate(['/cxc/notas'])
+        });
+      }
+    });
+    
+  }
+
 
 
 }

@@ -1,15 +1,20 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, ChangeDetectorRef, HostListener, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
-
+import * as _ from 'lodash';
 import { BonoficacionFormValidator } from './bonificacion-form.validator';
 import { FacturasSelectorBtnComponent } from 'app/cxc/notas/_components/facturas-selector/facturas-selector-btn/facturas-selector-btn.component';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
   selector: 'sx-bonificacion-form',
   templateUrl: './bonificacion-form.component.html',
-  styles: []
+  styles: [`
+    .slim {
+      width: 120px;
+    }
+  `]
 })
 export class BonificacionFormComponent implements OnInit, OnDestroy {
 
@@ -45,10 +50,12 @@ export class BonificacionFormComponent implements OnInit, OnDestroy {
       tipoDeCambio: [{value: 1.0, disabled: true}],
       importe: [{value: 0.0, disabled: true}, [Validators.required, Validators.min(1.0)]],
       descuento: [{value: 0.0, disabled: false}, [Validators.max(99.99)]],
+      descuento2: [{value: 0.0, disabled: false}, [Validators.max(99.99)]],
       comentario: [''],
       partidas: this.fb.array([]),
     }, {validator: BonoficacionFormValidator});
     this.observarTipoDeCalculo();
+    this.observarDescuentos();
   }
 
   ngOnInit() {
@@ -67,13 +74,40 @@ export class BonificacionFormComponent implements OnInit, OnDestroy {
       .subscribe( (tipo: string) => {
         switch (tipo) {
           case 'PORCENTAJE':
-          this.calculoPorcentual()
+          this.calculoPorcentual();
+          this.actualizar();
           break;
           case 'PRORRATEO':
           this.calculoProrrateo();
+          this.actualizar();
           break
         }
       });
+  }
+
+  private observarDescuentos() {
+    const desc$ = this.form.get('descuento')
+      .valueChanges
+      .takeUntil(this.destroy$);
+    const desc2$ = this.form.get('descuento2')
+      .valueChanges
+      .startWith(0)
+      .takeUntil(this.destroy$);
+    Observable.combineLatest(desc$, desc2$, (desc1: number, desc2: number)=> {
+      if(desc2 > 0.0) {
+        const descuento = +desc1;
+        const r = 100.00 - descuento;
+        const r2 = (desc2 * r)/100
+        const neto: number = descuento + r2;
+        return neto;
+      } else {
+        return +desc1;
+      }
+    }).takeUntil(this.destroy$)
+    .subscribe( neto => {
+      this.descuentoNeto = neto;
+      this.actualizar();
+    });
   }
 
   calculoPorcentual() {
@@ -84,6 +118,7 @@ export class BonificacionFormComponent implements OnInit, OnDestroy {
   calculoProrrateo() {
     this.form.get('importe').enable();
     this.form.get('descuento').disable();
+    this.form.get('descuento2').disable();
   }
 
 
@@ -104,15 +139,17 @@ export class BonificacionFormComponent implements OnInit, OnDestroy {
   }
 
   agregarFacturas(facturas: Array<any>) {
-    console.log('Agregando: ', facturas);
-    facturas.forEach(item => {
-      const det = {
-        cuentaPorCobrar: item,
-      };
-      this.partidas.push(new FormControl(det));
-      // this.facturas.push(det);
-    });
-    this.cd.detectChanges();
+    if (facturas ) {
+      facturas.forEach(item => {
+        const det = {
+          cuentaPorCobrar: item,
+        };
+        this.partidas.push(new FormControl(det));
+        // this.facturas.push(det);
+      });
+      this.actualizar();
+      this.cd.detectChanges();
+    }
   }
 
   
@@ -123,6 +160,22 @@ export class BonificacionFormComponent implements OnInit, OnDestroy {
 
   onDeletePartida( index: number) {
     this.partidas.removeAt(index);
+    this.actualizar();
+  }
+
+  totalFacturas = 0.0;
+  saldoFacturas = 0.0;
+  descuentoNeto = 0.0;
+
+  actualizar() {
+     this.totalFacturas = _.sumBy(this.partidas.value, (item: any) => item.cuentaPorCobrar.total);
+     this.saldoFacturas = _.sumBy(this.partidas.value, (item: any) => item.cuentaPorCobrar.saldo);
+     const base = this.form.get('baseDelCalculo').value ;
+     const importeBase = base === 'Saldo' ? this.saldoFacturas : this.totalFacturas;
+     if (this.form.get('tipoDeCalculo').value === 'PORCENTAJE') {
+      const importe = importeBase * (this.descuentoNeto / 100);
+      this.form.get('importe').setValue(importe);
+     }
   }
 
   @HostListener('window:keyup', ['$event'])

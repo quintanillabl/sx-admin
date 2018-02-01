@@ -1,6 +1,5 @@
-<!-- <h3 mat-dialog-title>Selección de RMD</h3> -->
-<div layout mat-dialog-title>
-  <mat-form-field [style.width.%]="100">
+<div layout mat-dialog-title >
+  <mat-form-field >
     <input type="text" matInput placeholder="Buscar facturas " [formControl]="control">
     <mat-icon matSuffix >search</mat-icon>
     <mat-hint>{{cliente.nombre}}</mat-hint>
@@ -8,7 +7,7 @@
 </div>
 <td-data-table 
   [columns]="columns" [data]="rows" 
-  [style.height.px]="350"
+  [style.height.px]="450"
   [selectable]="true"
   [multiple]="true"
   [(ngModel)]="selectedRows">

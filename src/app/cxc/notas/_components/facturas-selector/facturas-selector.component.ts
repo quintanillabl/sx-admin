@@ -24,6 +24,7 @@ export class FacturasSelectorComponent implements OnInit {
     {name: 'documento', label: 'Factura', numeric: true, width: 70},
     {name: 'fecha', label: 'Fecha', width: 100, format: (date) => this.datePipe.transform(date, 'dd/MM/yyyy')},
     {name: 'total', label: 'Total', numeric: true, format: (value)=> this.currencyPipe.transform(value, 'USD')},
+    {name: 'pagos', label: 'Pagos', numeric: true, format: (value)=> this.currencyPipe.transform(value, 'USD')},
     {name: 'saldo', label: 'Saldo', numeric: true, format: (value)=> this.currencyPipe.transform(value, 'USD')}
   ];
 

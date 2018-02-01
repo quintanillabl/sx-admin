@@ -8,6 +8,7 @@ import {RouterModule} from '@angular/router';
 import { PageFooterComponent } from './pages/page-footer/page-footer.component';
 import { SxNavListComponent } from './layout/sx-nav-list/sx-nav-list.component';
 import { OnlyNumbersDirective } from './directives/only-numbers.directive';
+import { ToUpperCaseDirective } from './directives/to-upper-case.directive';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { OnlyNumbersDirective } from './directives/only-numbers.directive';
     MaterialModule,
     CovalentModule,
   ],
-  declarations: [PageFooterComponent, SxNavListComponent, OnlyNumbersDirective],
+  declarations: [PageFooterComponent, SxNavListComponent, OnlyNumbersDirective, ToUpperCaseDirective],
   exports: [
     CommonModule,
     ReactiveFormsModule,
@@ -29,6 +30,7 @@ import { OnlyNumbersDirective } from './directives/only-numbers.directive';
     PageFooterComponent,
     SxNavListComponent,
     OnlyNumbersDirective,
+    ToUpperCaseDirective,
   ]
 })
 export class SharedModule { }

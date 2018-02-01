@@ -33,8 +33,8 @@ export class FacturasSelectorBtnComponent implements OnInit {
   lookup() {
     console.log('Presentar el dialogo para la seleccion de facturas');
     const dialogRef = this.dialog.open(FacturasSelectorComponent, {
-      width: '750px',
-      height: '550px',
+      width: '850px',
+      height: '700px',
       data: {
         cliente: this.cliente
       }

@@ -63,6 +63,11 @@ export class NotascxcService {
     const url = `${this.apiUrl}/timbrar/${nota.id}`
     return this.http.post(url, {});
   }
+
+  aplicar(nota) {
+    const url = `${this.apiUrl}/aplicar/${nota.id}`
+    return this.http.post(url, {});
+  }
   
   save(nota) {
     nota.cliente = { id: nota.cliente.id}
@@ -97,6 +102,10 @@ export class NotascxcService {
     const params = new HttpParams().set('target', target);
     const url = this.configService.buildApiUrl(endpoint);
     return this.http.put(url, {}, {params: params});
+  }
+
+  delete(id: string) {
+    return this.http.delete(this.apiUrl+'/'+id);
   }
 
 }
