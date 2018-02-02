@@ -9,6 +9,7 @@ import { CreditoPageComponent } from 'app/cxc/cartera/credito-page/credito-page.
 import { NotaViewComponent } from 'app/cxc/notas/_components/nota-view/nota-view.component';
 import { BonificacionesCreateComponent } from 'app/cxc/notas/bonificaciones/bonificaciones-create.component';
 import { ClientePageComponent } from 'app/cxc/cartera/cliente-page/cliente-page.component';
+import { ClientePageResolver } from 'app/cxc/cartera/cliente-page/cliente-page.resolver';
 
 const routes: Routes = [
   {
@@ -48,7 +49,8 @@ const routes: Routes = [
   },
   {
     path: 'cliente/:id',
-    component: ClientePageComponent
+    component: ClientePageComponent,
+    resolve: { cliente: ClientePageResolver }
   }
 ];
 

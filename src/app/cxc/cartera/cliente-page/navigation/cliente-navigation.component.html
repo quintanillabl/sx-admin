@@ -1,0 +1,9 @@
+<mat-nav-list flex [tdLayoutManageListClose]="!media.query('gt-sm')">
+  <ng-template let-item let-index="index" let-last="last" ngFor [ngForOf]="[0, 1, 2, 3]">
+    <a mat-list-item>
+      <mat-icon matListIcon [matTooltip]="!miniNav ? '' : 'Dashboard ' + index" matTooltipPosition="after">dashboard</mat-icon>
+      <span *ngIf="!miniNav">Dashboard {{index}}</span>
+    </a>
+  </ng-template>
+  <mat-divider></mat-divider>
+</mat-nav-list>

@@ -18,7 +18,6 @@ import { environment } from '../environments/environment';
 import { ClientesModule } from './clientes/clientes.module';
 import { ConfigService } from 'app/_core/services/config.service';
 
-
 export function onAppInit1(configService: ConfigService): () => Promise<any> {
   return () => configService.load()
 }

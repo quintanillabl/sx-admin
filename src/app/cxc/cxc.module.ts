@@ -6,6 +6,7 @@ import { CxcPageComponent } from './cxc-page/cxc-page.component';
 import { NotasModule } from './notas/notas.module';
 import { NotascxcService } from 'app/cxc/services/notascxc.service';
 import { CarteraModule } from 'app/cxc/cartera/cartera.module';
+import { ClientePageResolver } from 'app/cxc/cartera/cliente-page/cliente-page.resolver';
 
 
 @NgModule({
@@ -16,6 +17,6 @@ import { CarteraModule } from 'app/cxc/cartera/cartera.module';
     CxcRoutingModule
   ],
   declarations: [CxcPageComponent],
-  providers: [NotascxcService]
+  providers: [NotascxcService, ClientePageResolver]
 })
 export class CxcModule { }
