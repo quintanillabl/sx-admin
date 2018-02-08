@@ -11,6 +11,13 @@ export class ClienteNavigationComponent implements OnInit {
 
   @Input() media: TdMediaService;
 
+  navigation = [
+    {path: 'info', title: 'Generales', icon: 'account_box'},
+    {path: 'estadoDeCuenta', title: 'Estado de cuenta', icon: 'account_balance_wallet'},
+    {path: 'cobros', title: 'Cobros', icon:'attach_money'},
+    {path: '/cxc/credito', title: 'Cartera', icon: 'arrow_back'}
+  ]
+
   constructor() { }
 
   ngOnInit() { }

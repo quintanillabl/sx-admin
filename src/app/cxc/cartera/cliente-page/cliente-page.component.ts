@@ -1,7 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, HostListener } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TdMediaService, TdLayoutManageListComponent,  } from '@covalent/core';
 import { TdRotateAnimation } from '@covalent/core/common/animations/rotate/rotate.animation';
+import {MatDialog} from '@angular/material';
+import { ClienteSelectorComponent } from './cliente-selector.component';
+
 
 @Component({
   selector: 'sx-cliente-page',
@@ -21,12 +24,15 @@ export class ClientePageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     public media: TdMediaService,
-    private _changeDetectorRef: ChangeDetectorRef
-  ) { }
+    private _changeDetectorRef: ChangeDetectorRef,
+    private dialog: MatDialog
+  ) {
+    this.cliente = this.route.snapshot.data.cliente;
+   }
 
   ngOnInit() {
-    this.cliente = this.route.snapshot.data;
   }
 
   ngAfterViewInit(): void {
@@ -48,6 +54,27 @@ export class ClientePageComponent implements OnInit {
   }
   theme(theme: string): void {
     localStorage.setItem('theme', theme);
+  }
+
+  cambiarCliente() {
+    const dialogRef = this.dialog.open(ClienteSelectorComponent, {
+      width: '700px'
+    });
+    dialogRef.afterClosed().subscribe(val => {
+      if (val) {
+        console.log('Cliente: ', val.nombre);
+        this.router.navigate(['cxc/cliente/', val.id])
+      }
+    });
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.code === 'Insert' ) {
+    }
+    if (event.code === 'F2') {
+      this.cambiarCliente();      
+    }
   }
 
 }

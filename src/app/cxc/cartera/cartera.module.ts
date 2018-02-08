@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 
 import { CreditoPageComponent } from './credito-page/credito-page.component';
 import { SharedModule } from 'app/_shared/shared.module';
@@ -8,17 +9,32 @@ import { NotificationsComponent } from './cliente-page/notifications/notificatio
 import { ClienteThemeComponent } from './cliente-page/theme/clienteTheme.component';
 import { ClienteNavigationComponent } from './cliente-page/navigation/cliente-navigation.component';
 import { ClienteToolbarComponent } from './cliente-page/toolbar/cliente-toolbar.component';
+import { ClienteInfoPageComponent } from './cliente-info-page/cliente-info-page.component';
+import { ClientesModule } from 'app/clientes/clientes.module';
+import { ClienteSelectorComponent } from './cliente-page/cliente-selector.component';
+import { EstadoCuentaComponent } from './estado-cuenta/estado-cuenta.component';
+import { ClienteCobrosComponent } from './cliente-cobros/cliente-cobros.component';
+
+import {reducers } from './reducers';
 
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule.forChild([])
+    ClientesModule,
+    RouterModule.forChild([]),
+    StoreModule.forFeature('cartera', reducers),
+    
   ],
   declarations: [CreditoPageComponent, ClientePageComponent,
     NotificationsComponent,
     ClienteThemeComponent,
     ClienteNavigationComponent,
-    ClienteToolbarComponent
-  ]
+    ClienteToolbarComponent,
+    ClienteInfoPageComponent,
+    ClienteSelectorComponent,
+    EstadoCuentaComponent,
+    ClienteCobrosComponent
+  ],
+  entryComponents: [ClienteSelectorComponent]
 })
 export class CarteraModule { }

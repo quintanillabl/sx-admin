@@ -9,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
       dashboard
     </mat-icon>
     <span *ngIf="!miniNav" class="push-left-sm">
-      Tableros
+      Consultas
     </span>
   </mat-toolbar>
   `

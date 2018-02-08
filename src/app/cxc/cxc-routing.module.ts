@@ -10,6 +10,9 @@ import { NotaViewComponent } from 'app/cxc/notas/_components/nota-view/nota-view
 import { BonificacionesCreateComponent } from 'app/cxc/notas/bonificaciones/bonificaciones-create.component';
 import { ClientePageComponent } from 'app/cxc/cartera/cliente-page/cliente-page.component';
 import { ClientePageResolver } from 'app/cxc/cartera/cliente-page/cliente-page.resolver';
+import { ClienteInfoPageComponent } from 'app/cxc/cartera/cliente-info-page/cliente-info-page.component';
+import { EstadoCuentaComponent } from 'app/cxc/cartera/estado-cuenta/estado-cuenta.component';
+import { ClienteCobrosComponent } from 'app/cxc/cartera/cliente-cobros/cliente-cobros.component';
 
 const routes: Routes = [
   {
@@ -40,7 +43,7 @@ const routes: Routes = [
       },
       {
         path: 'credito',
-        component: CreditoPageComponent
+        component: CreditoPageComponent,
       },
       {
         path: ''
@@ -50,7 +53,12 @@ const routes: Routes = [
   {
     path: 'cliente/:id',
     component: ClientePageComponent,
-    resolve: { cliente: ClientePageResolver }
+    resolve: { cliente: ClientePageResolver },
+    children: [
+      { path: 'info', component: ClienteInfoPageComponent},
+      { path: 'estadoDeCuenta', component: EstadoCuentaComponent},
+      { path: 'cobros', component: ClienteCobrosComponent}
+    ]
   }
 ];
 
