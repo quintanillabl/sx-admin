@@ -13,6 +13,7 @@ import { ClientePageResolver } from 'app/cxc/cartera/cliente-page/cliente-page.r
 import { ClienteInfoPageComponent } from 'app/cxc/cartera/cliente-info-page/cliente-info-page.component';
 import { EstadoCuentaComponent } from 'app/cxc/cartera/estado-cuenta/estado-cuenta.component';
 import { ClienteCobrosComponent } from 'app/cxc/cartera/cliente-cobros/cliente-cobros.component';
+import { SolicitudesPageComponent } from 'app/cxc/solicitudes/container/solicitudes-page/solicitudes-page.component';
 
 const routes: Routes = [
   {
@@ -46,10 +47,12 @@ const routes: Routes = [
         component: CreditoPageComponent,
       },
       {
-        path: ''
+        path: 'solicitudes',
+        component: SolicitudesPageComponent
       }
     ]
   },
+  
   {
     path: 'cliente/:id',
     component: ClientePageComponent,

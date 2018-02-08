@@ -56,8 +56,7 @@ export class ClienteFieldComponent implements OnInit, ControlValueAccessor {
     this.clientes$ = this.searchControl
       .valueChanges
       .startWith(null)
-      .switchMap( term =>  this.service.list(term));
-      // .switchMap( term => this.lookup(term));
+      .switchMap( term =>  this.service.busarClientes({term, cartera: this.tipo}));
   }
 
 

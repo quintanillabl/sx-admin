@@ -30,6 +30,11 @@ export class ClientePageComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.cliente = this.route.snapshot.data.cliente;
+    this.route.data.subscribe( data => {
+      if (data) {
+        this.cliente = data.cliente;
+      }
+    });
    }
 
   ngOnInit() {

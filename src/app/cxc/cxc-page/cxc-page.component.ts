@@ -21,6 +21,12 @@ export class CxcPageComponent implements OnInit {
       description: 'Cartera de crédito ',
       icon: 'group'
     },
+    {
+      path: 'solicitudes',
+      title: 'Solicitudes',
+      descripcion: 'Autorizaciones de depositos',
+      icon: 'check_circle'
+    }
   ];
 
   constructor(

@@ -13,6 +13,8 @@ export class ClienteInfoPageComponent implements OnInit {
   constructor(private route: ActivatedRoute) { 
     route.parent.data.subscribe(data => {
       this.cliente = data.cliente;
+      console.log('Cliente seleccionado: ', this.cliente);
+
   });
   }
 
