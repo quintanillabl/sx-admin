@@ -26,6 +26,7 @@ const routes: Routes = [
   {
     path: '', 
     component: CxcPageComponent,
+    data: {cartera: { tipo: 'CRE', descripcion: 'Crédito'}},
     children: [
       {
         path: 'notas',
@@ -81,6 +82,31 @@ const routes: Routes = [
         component: NotaDeCargoCreateComponent,
         data: {cartera: 'CRE'}
       }
+    ]
+  },
+
+  {
+    path: 'contado',
+    component: CxcPageComponent,
+    data: {cartera: {tipo: 'CON', descripcion: 'Contado'}},
+    children: [
+      {
+        path: 'notas',
+        component: NotascxcPageComponent,
+        children: [
+          {path: 'devoluciones', component: DevolucionesComponent},
+          {path: 'devoluciones/show/:id', component: NotaViewComponent},
+          {path: 'bonificaciones', component: BonificacionesComponent},
+          {
+            path: 'bonificaciones/create',
+            component: BonificacionesCreateComponent,
+            data: {tipoCartera: 'CRE'}
+          }, {
+            path: 'bonificaciones/show/:id',
+            component: NotaViewComponent
+          }
+        ]
+      },
     ]
   },
   

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, CurrencyPipe } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 
@@ -25,7 +25,8 @@ export class DevolucionesComponent implements OnInit {
   procesando = false
 
   private _pendientes = true;
-  cartera = 'CRE';
+
+  cartera 
 
   columns: ITdDataTableColumn[] = [
     {name: 'documento', label: 'RMD',sortable: true, numeric: true, width: 70},
@@ -33,7 +34,7 @@ export class DevolucionesComponent implements OnInit {
     {name: 'fecha', label: 'Fecha', width: 100, format: (date) => this.datePipe.transform(date, 'dd/MM/yyyy')},
     {name: 'sucursal.nombre', label: 'Sucursal', numeric: false, nested: true, width: 150},
     {name: 'venta.cliente.nombre', label: 'Cliente', numeric: false, width: 300},
-    {name: 'factura', label: 'Factura', numeric: true, width: 100},
+    {name: 'factura', label: 'Factura', numeric: true, width: 150},
     {name: 'cobro.fecha', label: 'Atendida', nested: true, numeric: false, hidden: true, width: 100, format: (date) => this.datePipe.transform(date, 'dd/MM/yyyy')},
     {name: 'total', label: 'Total', numeric: true, format: (value)=> this.currencyPipe.transform(value, 'USD')}
   ];
@@ -58,8 +59,12 @@ export class DevolucionesComponent implements OnInit {
     private service: NotascxcService,
     private dialogService: TdDialogService,
     private loadingService: TdLoadingService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private route: ActivatedRoute
+  ) { 
+    this.cartera = route.parent.parent
+      .snapshot.data.cartera
+  }
 
   ngOnInit() {
     this.load();
@@ -68,7 +73,7 @@ export class DevolucionesComponent implements OnInit {
   load() {
     this.loadingService.register('procesando');
     this.service
-    .buscarRmd({pendientes:this.pendientes})
+    .buscarRmd({pendientes:this.pendientes, cartera: this.cartera.tipo})
     .do( () => this.procesando = true)
     .catch( error => this.handelError2(error))
     .finally( () => this.loadingService.resolve('procesando'))
@@ -96,6 +101,7 @@ export class DevolucionesComponent implements OnInit {
       });
       ref.afterClosed().subscribe(val => {
         if (val) {
+          // console.log('Generando nota de devolucion: ', this.selectedRows[0]);
           this.generarNota(this.selectedRows[0]);
         }
       });
@@ -103,7 +109,7 @@ export class DevolucionesComponent implements OnInit {
   }
 
   generarNota(nota) {
-    this.service.generarNotaDeDevolucion(nota, this.cartera)
+    this.service.generarNotaDeDevolucion(nota, this.cartera.tipo)
     .do( () => this.procesando = true)
     .delay(3000)
     .catch( error=> this.handelError2(error))

@@ -55,9 +55,11 @@
         <mat-icon color="warning"*ngIf="!value.cfdi" matTooltip="Pendiente de timbrado">notifications_off</mat-icon>
       </a>
     </div>
-    <!-- <span layout *ngIf="value"  [routerLink]="['show', row.id]" >
-      
-    </span> -->
+  </ng-template>
+  <ng-template tdDataTableTemplate="factura" let-value="value" let-row="row">
+    <span class="tc-indigo-800" >
+      {{row.venta.tipo}} - {{value}}
+    </span>
   </ng-template>
 </td-data-table>
 <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">

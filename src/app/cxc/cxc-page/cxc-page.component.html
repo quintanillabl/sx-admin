@@ -9,7 +9,7 @@ navigationRoute="/cxc">
   <button mat-icon-button tdLayoutToggle td-menu-button>
     <mat-icon>menu</mat-icon>
   </button>
-  <span [routerLink]="['/cxc']" class="cursor-pointer">CxC</span>
+  <span [routerLink]="['/cxc']" class="cursor-pointer">Cuentas por cobrar</span>
 </div>
 
 
@@ -18,7 +18,7 @@ navigationRoute="/cxc">
   <button mat-icon-button tdLayoutNavListOpen [hideWhenOpened]="true">
     <mat-icon>arrow_back</mat-icon>
   </button>
-
+  <span >{{cartera.descripcion}}</span>
   <span flex></span>
   <span>SX Admin</span>
   <a mat-icon-button matTooltip="Pendiente" >
