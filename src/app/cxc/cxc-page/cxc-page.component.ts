@@ -32,6 +32,12 @@ export class CxcPageComponent implements OnInit {
       title: 'Cobros',
       descripcion: 'Cobros registrados',
       icon: 'attach_money'
+    },
+    {
+      path: 'notasDeCargo',
+      title: 'Cargos',
+      descripcion: 'Notas de cargo',
+      icon: 'reply_all'
     }
   ];
 

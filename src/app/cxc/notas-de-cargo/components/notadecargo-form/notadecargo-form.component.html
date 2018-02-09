@@ -1,0 +1,45 @@
+<mat-card>
+  <mat-card-title-group layout>
+    <mat-card-title>Nota de cargo</mat-card-title>
+    <span flex></span>
+    <span class="pad">{{cartera}}</span>
+  </mat-card-title-group>
+  <mat-divider></mat-divider>
+  
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div layout = "column" class="pad-left pad-right">
+      <sx-cliente-field formControlName="cliente" flex></sx-cliente-field>
+      <div layout>
+        <mat-form-field flex class="pad-right">
+          <input type="text" placeholder="Importe" matInput>
+        </mat-form-field>
+        <mat-form-field flex class="pad-right">
+          <input type="text" placeholder="Impuesto" matInput>
+        </mat-form-field>
+        <mat-form-field flex >
+          <input type="text" placeholder="Total" matInput>
+        </mat-form-field>
+      </div>
+      <div layout >
+        <mat-form-field flex>
+          <textarea matInput placeholder="Comentario"  formControlName="comentario"
+            matTextareaAutosize matAutosizeMinRows="1">
+          </textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <!-- <sx-notasdecargo-partidas></sx-notasdecargo-partidas> -->
+    <!-- <td-message label="Error!" sublabel="Digite el importe del deposito" color="warn" 
+      *ngIf="form.getError('totalInvalido')"
+      icon="error">
+    </td-message> -->
+    <mat-card-actions>
+      <button type="button" mat-button (click)="cancel.emit('cancel')"> Cancelar</button>
+      <button mat-button color="primary" *ngIf="isEditable()"
+        [disabled]="form.invalid || form.pristine">Salvar
+      </button>
+    </mat-card-actions>
+  </form>
+  
+</mat-card>

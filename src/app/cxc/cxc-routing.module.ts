@@ -19,6 +19,8 @@ import { SolicitudEditComponent } from 'app/cxc/solicitudes/container/solicitud-
 import { SolicitudResolver } from 'app/cxc/solicitudes/container/solicitud.resolver';
 import { CobrosPageComponent } from 'app/cxc/cobros/container/cobros-page/cobros-page.component';
 import { ClienteCargosComponent } from 'app/cxc/cartera/cliente-cargos/cliente-cargos.component';
+import { NotasDeCargoPageComponent } from 'app/cxc/notas-de-cargo/container/notas-de-cargo-page/notas-de-cargo-page.component';
+import { NotaDeCargoCreateComponent } from 'app/cxc/notas-de-cargo/container/nota-de-cargo-create.component';
 
 const routes: Routes = [
   {
@@ -67,6 +69,16 @@ const routes: Routes = [
       {
         path: 'cobros',
         component: CobrosPageComponent,
+        data: {cartera: 'CRE'}
+      },
+      {
+        path: 'notasDeCargo',
+        component: NotasDeCargoPageComponent,
+        data: {cartera: 'CRE'}
+      },
+      {
+        path: 'notasDeCargo/create',
+        component: NotaDeCargoCreateComponent,
         data: {cartera: 'CRE'}
       }
     ]
