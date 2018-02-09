@@ -5,20 +5,21 @@ import {Observable} from 'rxjs/Observable';
 
 import * as _ from 'lodash';
 
-import { Cliente } from 'app/_shared/models';
-import { ClienteService } from 'app/clientes/services/cliente.service';
+
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ConfigService } from 'app/_core/services/config.service';
 
 
-export const CLIENTE_LOOKUPFIELD_VALUE_ACCESSOR: any = {
+export const CUENTA_DE_BANCO_LOOKUPFIELD_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef( () => ClienteFieldComponent),
+  useExisting: forwardRef( () => CuentaBancoFieldComponent),
   multi: true,
 }
 
 @Component({
-  selector: 'sx-cliente-field',
-  providers: [CLIENTE_LOOKUPFIELD_VALUE_ACCESSOR],
-  templateUrl: './cliente-field.component.html',
+  selector: 'sx-cuenta-banco-field',
+  providers: [CUENTA_DE_BANCO_LOOKUPFIELD_VALUE_ACCESSOR],
+  templateUrl: './cuenta-banco-field.component.html',
   styles: [`
     .fill {
       width: 100%;
@@ -26,7 +27,7 @@ export const CLIENTE_LOOKUPFIELD_VALUE_ACCESSOR: any = {
   `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ClienteFieldComponent implements OnInit, ControlValueAccessor {
+export class CuentaBancoFieldComponent implements OnInit, ControlValueAccessor {
 
   apiUrl: string;
 
@@ -34,13 +35,9 @@ export class ClienteFieldComponent implements OnInit, ControlValueAccessor {
 
   @Input() required = false;
 
-  @Input() activos = true;
+  @Input() placeholder = 'Cuenta';
 
-  @Input() tipo = 'CREDITO';
-
-  @Input() placeholder = 'Cliente';
-
-  clientes$: Observable<Cliente[]>;
+  cuentas$: Observable<any[]>;
 
   onChange;
 
@@ -49,24 +46,28 @@ export class ClienteFieldComponent implements OnInit, ControlValueAccessor {
   @ViewChild('inputField') inputField: ElementRef;
 
   constructor(
-    private service: ClienteService
-  ) {}
-
-  ngOnInit() {
-    this.clientes$ = this.searchControl
-      .valueChanges
-      .startWith(null)
-      .switchMap( term =>  this.service.busarClientes({term, cartera: this.tipo}));
+    private http: HttpClient,
+    private config: ConfigService
+  ) {
+    this.apiUrl = config.buildApiUrl('tesoreria/cuentas');
   }
 
+  ngOnInit() {
+    this.cuentas$ = this.searchControl
+      .valueChanges
+      .startWith(null)
+      .switchMap( (term: any) =>  {
+        const params = new HttpParams().set('term', term);
+        return this.http.get<any[]>(this.apiUrl, {params: params})
+      });
+  }
 
   select(event) {
-    // console.log('Selected: ', event.option.value);
     this.onChange(event.option.value);
   }
 
-  displayFn(cliente: Cliente) {
-    return cliente ? `${cliente.nombre} (${cliente.rfc}) [${cliente.credito ? 'Crédito' : 'Contado'}]` : '';
+  displayFn(cuenta) {
+    return cuenta ? `${cuenta.descripcion} (${cuenta.numero})` : '';
   }
 
   writeValue(obj: any): void {
@@ -99,3 +100,4 @@ export class ClienteFieldComponent implements OnInit, ControlValueAccessor {
   }
 
 }
+

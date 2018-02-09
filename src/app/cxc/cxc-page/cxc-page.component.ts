@@ -26,6 +26,12 @@ export class CxcPageComponent implements OnInit {
       title: 'Solicitudes',
       descripcion: 'Autorizaciones de depositos',
       icon: 'check_circle'
+    },
+    {
+      path: 'cobros',
+      title: 'Cobros',
+      descripcion: 'Cobros registrados',
+      icon: 'attach_money'
     }
   ];
 

@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, HostListener, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TdMediaService, TdLayoutManageListComponent,  } from '@covalent/core';
 import { TdRotateAnimation } from '@covalent/core/common/animations/rotate/rotate.animation';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ClienteSelectorComponent } from './cliente-selector.component';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -22,6 +23,8 @@ export class ClientePageComponent implements OnInit {
 
   @ViewChild('manageList') manageList: TdLayoutManageListComponent;
 
+  subscription: Subscription;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -29,8 +32,8 @@ export class ClientePageComponent implements OnInit {
     private _changeDetectorRef: ChangeDetectorRef,
     private dialog: MatDialog
   ) {
-    this.cliente = this.route.snapshot.data.cliente;
-    this.route.data.subscribe( data => {
+
+    this.subscription = this.route.data.subscribe( data => {
       if (data) {
         this.cliente = data.cliente;
       }
@@ -38,6 +41,10 @@ export class ClientePageComponent implements OnInit {
    }
 
   ngOnInit() {
+  }
+  
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 
   ngAfterViewInit(): void {

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DatePipe, CurrencyPipe } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { ITdDataTableColumn } from '@covalent/core/data-table/data-table.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+
 
 import { Cliente } from 'app/_shared/models';
 import { ClienteService } from 'app/clientes/services/cliente.service';

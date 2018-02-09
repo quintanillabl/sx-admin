@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { ClientesModule } from './clientes/clientes.module';
 import { ConfigService } from 'app/_core/services/config.service';
+import { TesoreriaModule } from 'app/tesoreria/tesoreria.module';
 
 export function onAppInit1(configService: ConfigService): () => Promise<any> {
   return () => configService.load()
@@ -67,7 +68,9 @@ export function onAppInit1(configService: ConfigService): () => Promise<any> {
     EffectsModule.forRoot([]),
 
     CoreModule,
-    ClientesModule.forRoot()
+    SharedModule.forRoot(),
+    ClientesModule.forRoot(),
+    TesoreriaModule.forRoot()
   ],
   providers: [ ConfigService,
     {

@@ -16,6 +16,7 @@ import { EstadoCuentaComponent } from './estado-cuenta/estado-cuenta.component';
 import { ClienteCobrosComponent } from './cliente-cobros/cliente-cobros.component';
 
 import {reducers } from './reducers';
+import { ClienteCargosComponent } from './cliente-cargos/cliente-cargos.component';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import {reducers } from './reducers';
     ClienteInfoPageComponent,
     ClienteSelectorComponent,
     EstadoCuentaComponent,
-    ClienteCobrosComponent
+    ClienteCobrosComponent,
+    ClienteCargosComponent
   ],
   entryComponents: [ClienteSelectorComponent]
 })

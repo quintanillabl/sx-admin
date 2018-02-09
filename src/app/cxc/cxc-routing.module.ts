@@ -14,6 +14,11 @@ import { ClienteInfoPageComponent } from 'app/cxc/cartera/cliente-info-page/clie
 import { EstadoCuentaComponent } from 'app/cxc/cartera/estado-cuenta/estado-cuenta.component';
 import { ClienteCobrosComponent } from 'app/cxc/cartera/cliente-cobros/cliente-cobros.component';
 import { SolicitudesPageComponent } from 'app/cxc/solicitudes/container/solicitudes-page/solicitudes-page.component';
+import { SolicitudesCreatePageComponent } from 'app/cxc/solicitudes/container/solicitudes-create-page/solicitudes-create-page.component';
+import { SolicitudEditComponent } from 'app/cxc/solicitudes/container/solicitud-edit.component';
+import { SolicitudResolver } from 'app/cxc/solicitudes/container/solicitud.resolver';
+import { CobrosPageComponent } from 'app/cxc/cobros/container/cobros-page/cobros-page.component';
+import { ClienteCargosComponent } from 'app/cxc/cartera/cliente-cargos/cliente-cargos.component';
 
 const routes: Routes = [
   {
@@ -49,6 +54,20 @@ const routes: Routes = [
       {
         path: 'solicitudes',
         component: SolicitudesPageComponent
+      },
+      {
+        path: 'solicitudes/create',
+        component: SolicitudesCreatePageComponent,
+        data: { cartera: 'CRE'}
+      }, {
+        path: 'solicitudes/edit/:id',
+        component: SolicitudEditComponent,
+        resolve: { solicitud: SolicitudResolver }
+      },
+      {
+        path: 'cobros',
+        component: CobrosPageComponent,
+        data: {cartera: 'CRE'}
       }
     ]
   },
@@ -60,7 +79,8 @@ const routes: Routes = [
     children: [
       { path: 'info', component: ClienteInfoPageComponent},
       { path: 'estadoDeCuenta', component: EstadoCuentaComponent},
-      { path: 'cobros', component: ClienteCobrosComponent}
+      { path: 'cobros', component: ClienteCobrosComponent},
+      { path: 'cargos', component: ClienteCargosComponent, data: {cartera: 'CRE'}}
     ]
   }
 ];

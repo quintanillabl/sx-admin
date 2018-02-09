@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -10,6 +10,9 @@ import { SxNavListComponent } from './layout/sx-nav-list/sx-nav-list.component';
 import { OnlyNumbersDirective } from './directives/only-numbers.directive';
 import { ToUpperCaseDirective } from './directives/to-upper-case.directive';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
+import { BancoFieldComponent } from './components/banco-field/banco-field.component';
+import { CuentaBancoFieldComponent } from './components/cuenta-banco-field/cuenta-banco-field.component';
+import { PagoUtils } from 'app/_shared/utils/pagoUtils.service';
 
 
 @NgModule({
@@ -21,7 +24,7 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
     MaterialModule,
     CovalentModule,
   ],
-  declarations: [PageFooterComponent, SxNavListComponent, OnlyNumbersDirective, ToUpperCaseDirective, ThemeSelectorComponent],
+  declarations: [PageFooterComponent, SxNavListComponent, OnlyNumbersDirective, ToUpperCaseDirective, ThemeSelectorComponent, BancoFieldComponent, CuentaBancoFieldComponent],
   exports: [
     CommonModule,
     ReactiveFormsModule,
@@ -32,6 +35,16 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
     SxNavListComponent,
     OnlyNumbersDirective,
     ToUpperCaseDirective,
+    BancoFieldComponent,
+    CuentaBancoFieldComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule { 
+  
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule,
+      providers: [ PagoUtils ]
+    };
+  }
+}

@@ -15,6 +15,7 @@ export class ClienteNavigationComponent implements OnInit {
     {path: 'info', title: 'Generales', icon: 'account_box'},
     {path: 'estadoDeCuenta', title: 'Estado de cuenta', icon: 'account_balance_wallet'},
     {path: 'cobros', title: 'Cobros', icon:'attach_money'},
+    {path: 'cargos', title: 'Notas de cargo', icon:'keyboard_tab'},
     {path: '/cxc/credito', title: 'Cartera', icon: 'arrow_back'}
   ]
 
