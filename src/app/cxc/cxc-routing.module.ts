@@ -115,6 +115,7 @@ const routes: Routes = [
     component: ClientePageComponent,
     resolve: { cliente: ClientePageResolver },
     children: [
+      { path: '', redirectTo: 'info'},
       { path: 'info', component: ClienteInfoPageComponent},
       { path: 'estadoDeCuenta', component: EstadoCuentaComponent},
       { path: 'cobros', component: ClienteCobrosComponent},

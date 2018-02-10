@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe, CurrencyPipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ITdDataTableColumn, TdDataTableSortingOrder } from '@covalent/core/data-table/data-table.component';
 import { ITdDataTableSortChangeEvent } from '@covalent/core/data-table/data-table-column/data-table-column.component';
@@ -8,7 +9,6 @@ import { TdDialogService } from '@covalent/core';
 import { TdLoadingService } from '@covalent/core/loading/services/loading.service';
 
 import { NotascxcService } from 'app/cxc/services/notascxc.service';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 @Component({
@@ -18,14 +18,13 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class BonificacionesComponent implements OnInit {
 
-  cartera = 'CRE';
+  cartera ;
 
   columns: ITdDataTableColumn[] = [
     {name: 'serie', label: 'Serie',sortable: true, numeric: true, width: 70},
     {name: 'folio', label: 'Folio',sortable: true,nested: true, numeric: true, width: 100},
     {name: 'fecha', label: 'Fecha', width: 100, format: (date) => this.datePipe.transform(date, 'dd/MM/yyyy')},
     {name: 'cliente.nombre', label: 'Cliente', numeric: false, nested: true, width: 300},
-    // {name: 'sucursal.nombre', label: 'Sucursal', numeric: false, nested: true, width: 150},
     {name: 'timbrado', label: 'Timbrado', numeric: false, width: 100},
     {name: 'total', label: 'Total', numeric: true, format: (value)=> this.currencyPipe.transform(value, 'USD')},
     {name: 'disponible', label: 'Disponible', numeric: true, format: (value)=> this.currencyPipe.transform(value, 'USD')}
@@ -37,7 +36,7 @@ export class BonificacionesComponent implements OnInit {
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
   
   notas$: Observable<any[]>;
-  search$ = new BehaviorSubject<string>('');
+  term = '';
 
   constructor(
     private datePipe: DatePipe,
@@ -46,14 +45,11 @@ export class BonificacionesComponent implements OnInit {
     private dialogService: TdDialogService,
     private loadingService: TdLoadingService,
     private service: NotascxcService,
+    private route: ActivatedRoute
   ) { 
-    this.notas$ = this.search$.debounceTime(400)
-      .switchMap( term => {
-        return this.service
-        .list({term: term, tipo: 'BONIFICACION'})
-        .catch( error => this.handelError2(error))
-      });
-    // this.notas$.subscribe(data => console.log('Data: ', data));
+
+    this.cartera = route.parent.parent
+      .snapshot.data.cartera
   }
 
   ngOnInit() {
@@ -61,24 +57,14 @@ export class BonificacionesComponent implements OnInit {
   }
 
   search(term){
-    this.search$.next(term);
+    this.term = term || '';
+    this.load();
   }
 
   load(){
-    this.search$.next('');
-    /*
-    this.loadingService.register('procesando');
-    this.service
-    .list({tipo: 'BONIFICACION'})
-    .catch( error => this.handelError2(error))
-    .finally( () => this.loadingService.resolve('procesando'))
-    //.delay(3000)
-    .subscribe( res => {
-      this.data = res;
-      this.filteredData = res;
-      console.log('Pendientes: ', res);
-    });
-    */
+    this.notas$ = this.service
+      .list({term: this.term, tipo: 'BONIFICACION', cartera: this.cartera.tipo})
+      .catch( error => this.handelError2(error));
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
