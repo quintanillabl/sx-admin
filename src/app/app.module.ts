@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler, APP_INITIALIZER} from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 /** ngrx **/
 import { StoreModule } from '@ngrx/store';
@@ -16,7 +16,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { ClientesModule } from './clientes/clientes.module';
+import { ConfigService } from 'app/_core/services/config.service';
+import { TesoreriaModule } from 'app/tesoreria/tesoreria.module';
 
+export function onAppInit1(configService: ConfigService): () => Promise<any> {
+  return () => configService.load()
+}
 
 @NgModule({
   declarations: [
@@ -63,9 +68,17 @@ import { ClientesModule } from './clientes/clientes.module';
     EffectsModule.forRoot([]),
 
     CoreModule,
-    ClientesModule.forRoot()
+    SharedModule.forRoot(),
+    ClientesModule.forRoot(),
+    TesoreriaModule.forRoot()
   ],
-  providers: [
+  providers: [ ConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: onAppInit1,
+      multi: true,
+      deps: [ConfigService]
+    },
     /**
      * The `RouterStateSnapshot` provided by the `Router` is a large complex structure.
      * A custom RouterStateSerializer is used to parse the `RouterStateSnapshot` provided

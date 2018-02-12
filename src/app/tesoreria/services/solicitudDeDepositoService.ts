@@ -20,9 +20,12 @@ export class SolicitudDeDepositoService {
     return this.http.get<SolicitudDeDeposito>(url).shareReplay();
   }
 
-  pendientes(): Observable<SolicitudDeDeposito[]> {
-    const params = new HttpParams()
+  pendientes(filtro: {} = {}): Observable<SolicitudDeDeposito[]> {
+    let params = new HttpParams()
       .set('pendientes', 'pendientes');
+    _.forIn(filtro, (value, key) =>{
+      params = params.set(key,value);
+    });
     const url = `${this.apiUrl}/pendientes`
     return this.http.get<SolicitudDeDeposito[]>(url, {params: params});
   }

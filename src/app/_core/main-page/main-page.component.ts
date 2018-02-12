@@ -36,7 +36,12 @@ export class MainPageComponent implements OnInit {
     {
       icon: 'list',
       route: '/cxc',
-      title: 'CXC Cuentas por cobrar'
+      title: 'CXC (Crédito)'
+    },
+    {
+      icon: 'list',
+      route: '/cxc/contado',
+      title: 'CXC (Contado)'
     },
     {
       icon: 'color_lens',
