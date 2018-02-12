@@ -28,6 +28,8 @@ export class DevolucionesComponent implements OnInit {
 
   cartera 
 
+  term = '' ;
+
   columns: ITdDataTableColumn[] = [
     {name: 'documento', label: 'RMD',sortable: true, numeric: true, width: 70},
     {name: 'nota', label: 'Nota',sortable: true,nested: true, hidden: !this.pendientes, numeric: true, width: 150},
@@ -73,7 +75,7 @@ export class DevolucionesComponent implements OnInit {
   load() {
     this.loadingService.register('procesando');
     this.service
-    .buscarRmd({pendientes:this.pendientes, cartera: this.cartera.tipo})
+    .buscarRmd({pendientes:this.pendientes, cartera: this.cartera.tipo, term: this.term})
     .do( () => this.procesando = true)
     .catch( error => this.handelError2(error))
     .finally( () => this.loadingService.resolve('procesando'))
@@ -87,6 +89,11 @@ export class DevolucionesComponent implements OnInit {
   }
 
   search(term){
+    if (term !== undefined) {
+      console.log('Search: ', term);
+      this.term = term;
+      this.load();
+    }
     
   }
   
