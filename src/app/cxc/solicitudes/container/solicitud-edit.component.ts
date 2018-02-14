@@ -32,7 +32,7 @@ export class SolicitudEditComponent implements OnInit {
     private route: ActivatedRoute,
     private service: SolicitudDeDepositoService,
     private _loadingService: TdLoadingService
-  ) { 
+  ) {
     this.subscription = this.route.data.subscribe( data => {
       if (data) {
         this.solicitud = data.solicitud;
@@ -41,21 +41,21 @@ export class SolicitudEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cartera = this.route.snapshot.data.cartera
+    this.cartera = this.route.snapshot.data.cartera;
   }
 
   onCancel() {
-    this.router.navigate(['../../'], {relativeTo: this.route})
+    this.router.navigate(['../../'], {relativeTo: this.route});
   }
 
   onSave(sol) {
-    console.log('Salvando solicitud: ', sol);
+    console.log('Actualizando: ', sol);
     this._loadingService.register('processing');
-    this.service.save(sol)
+    this.service.update(sol)
     .finally( () => this._loadingService.resolve('processing'))
     .subscribe(res => {
       console.log('Res: ', res);
-      this.router.navigate(['../../'], {relativeTo: this.route})
+      this.router.navigate(['../../'], {relativeTo: this.route});
     });
   }
 

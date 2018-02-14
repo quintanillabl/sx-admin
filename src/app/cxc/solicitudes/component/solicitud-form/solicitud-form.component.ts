@@ -65,21 +65,29 @@ export class SolicitudFormComponent implements OnInit, OnChanges {
     const efectivo = this.form.get('efectivo').value || 0.0;
     const cheque = this.form.get('cheque').value || 0.0;
     const transferencia = this.form.get('transferencia').value || 0.0;
+    let fechaDeposito = this.form.get('fechaDeposito').value;
+    if (_.isDate(fechaDeposito)) {
+      fechaDeposito = fechaDeposito.toISOString();
+    }
     const entity = {
       ...this.form.value,
       tipo: this.cartera,
       cheque: _.toNumber(cheque),
       efectivo: _.toNumber(efectivo),
       transferencia: _.toNumber(transferencia),
-      fechaDeposito: this.form.get('fechaDeposito').value.toISOString(),
+      fechaDeposito: fechaDeposito,
+      comentario: null,
     };
+    if (this.solicitud) {
+      entity.id = this.solicitud.id;
+    }
     return entity;
   }
 
   onSubmit() {
     const res = this.prepareEntity();
     console.log('Salvando: ', res);
-    if (this.isEditable()) {
+    if (this.form.valid) {
       this.save.emit(res);
     }
   }
@@ -93,15 +101,18 @@ export class SolicitudFormComponent implements OnInit, OnChanges {
         this.form.get('cheque').setValue(0);
 
       } else {
-        this.form.get('efectivo').enable()
-        this.form.get('cheque').enable()
+        this.form.get('efectivo').enable();
+        this.form.get('cheque').enable();
       }
     });
   }
 
   isEditable() {
-    if (this.solicitud) {
-      return this.solicitud.cobro === null && this.solicitud.comentario === null
+    if (this.solicitud !== null) {
+      const comentario: string = this.form.get('comentario').value;
+      if (comentario === null || comentario.length === 0) {
+        return false;
+      }
     }
     return true;
   }

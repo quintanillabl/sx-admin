@@ -10,7 +10,7 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
     <div layout = "column" class="pad-left pad-right">
       <sx-cliente-field formControlName="cliente" flex></sx-cliente-field>
-      
+
       <div layout flex>
         <sx-banco-field formControlName="banco" flex class="pad-right"></sx-banco-field>
         <sx-cuenta-banco-field formControlName="cuenta" flex></sx-cuenta-banco-field>
@@ -32,7 +32,7 @@
         <mat-form-field flex class="pad-right">
           <input type="text" matInput formControlName="cheque" placeholder="Cheque" sxOnlyNumbers>
         </mat-form-field>
-        
+
         <mat-form-field class="pad-right">
           <input type="text" matInput formControlName="efectivo" sxOnlyNumbers
             placeholder="Efectivo">
@@ -54,8 +54,8 @@
       </div>
 
     </div>
-    
-    <!-- <td-message label="Error!" sublabel="Digite el importe del deposito" color="warn" 
+
+    <!-- <td-message label="Error!" sublabel="Digite el importe del deposito" color="warn"
       *ngIf="form.getError('totalInvalido')"
       icon="error">
     </td-message> -->
