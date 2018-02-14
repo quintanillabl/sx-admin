@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import * as _ from 'lodash';
 
 import { SolicitudDeDeposito } from 'app/tesoreria/model/solicitudDeDeposito';
 import { OnDestroy, OnChanges, SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
@@ -31,7 +32,7 @@ export class SolicitudFormComponent implements OnInit, OnChanges {
 
   @Input() solicitud: SolicitudDeDeposito;
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder) {
     this.buildForm();
   }
 
@@ -61,9 +62,15 @@ export class SolicitudFormComponent implements OnInit, OnChanges {
   }
 
   prepareEntity() {
+    const efectivo = this.form.get('efectivo').value || 0.0;
+    const cheque = this.form.get('cheque').value || 0.0;
+    const transferencia = this.form.get('transferencia').value || 0.0;
     const entity = {
       ...this.form.value,
       tipo: this.cartera,
+      cheque: _.toNumber(cheque),
+      efectivo: _.toNumber(efectivo),
+      transferencia: _.toNumber(transferencia),
       fechaDeposito: this.form.get('fechaDeposito').value.toISOString(),
     };
     return entity;
@@ -96,7 +103,7 @@ export class SolicitudFormComponent implements OnInit, OnChanges {
     if (this.solicitud) {
       return this.solicitud.cobro === null && this.solicitud.comentario === null
     }
-    return true
+    return true;
   }
 
 }
