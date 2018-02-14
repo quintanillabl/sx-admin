@@ -28,7 +28,7 @@
       </mat-form-field>
 
       <mat-form-field flex>
-        <textarea matInput placeholder="Comentario"  [value]="nota.comentario"
+        <textarea matInput placeholder="Comentario"  [value]="nota.comentario" [disabled]="true"
           matTextareaAutosize matAutosizeMinRows="1">
         </textarea>
       </mat-form-field>
@@ -42,7 +42,7 @@
       </mat-form-field>
       <span flex></span>
       <mat-form-field class="pad-right" [style.width.px]="100">
-        <input type="text" placeholder="Cargo" matInput [disabled]="true">
+        <input type="text" placeholder="Cargo" matInput [disabled]="true" [value]="nota.cargo">
         <span matSuffix>%</span>
       </mat-form-field>
 
