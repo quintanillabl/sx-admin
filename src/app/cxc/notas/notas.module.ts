@@ -46,8 +46,8 @@ import { BonificacionPartidasComponent } from './_components/bonificacion-form/b
     FacturasSelectorBtnComponent,
     BonificacionesCreateComponent,
     BonificacionPartidasComponent,
-    
   ],
+  exports: [FacturasSelectorComponent, FacturasSelectorBtnComponent],
   entryComponents: [SelectorDeRmdComponent, FacturasSelectorComponent],
   providers: [DatePipe, CurrencyPipe]
 })

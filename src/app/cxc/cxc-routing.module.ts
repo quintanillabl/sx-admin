@@ -21,10 +21,14 @@ import { CobrosPageComponent } from 'app/cxc/cobros/container/cobros-page/cobros
 import { ClienteCargosComponent } from 'app/cxc/cartera/cliente-cargos/cliente-cargos.component';
 import { NotasDeCargoPageComponent } from 'app/cxc/notas-de-cargo/container/notas-de-cargo-page/notas-de-cargo-page.component';
 import { NotaDeCargoCreateComponent } from 'app/cxc/notas-de-cargo/container/nota-de-cargo-create.component';
+import { NotaDeCargoEditComponent } from './notas-de-cargo/container/nota-de-cargo-edit.component';
+import { NotadecargoResolver } from './notas-de-cargo/container/notadecargo.resolver';
+import { NotaDeCargoShowComponent } from './notas-de-cargo/container/nota-de-cargo-show/nota-de-cargo-show.component';
+
 
 const routes: Routes = [
   {
-    path: '', 
+    path: '',
     component: CxcPageComponent,
     data: {cartera: { tipo: 'CRE', descripcion: 'Crédito'}},
     children: [
@@ -81,6 +85,16 @@ const routes: Routes = [
         path: 'notasDeCargo/create',
         component: NotaDeCargoCreateComponent,
         data: {cartera: 'CRE'}
+      },
+      {
+        path: 'notasDeCargo/edit/:id',
+        component: NotaDeCargoEditComponent,
+        resolve: { nota: NotadecargoResolver}
+      },
+      {
+        path: 'notasDeCargo/show/:id',
+        component: NotaDeCargoShowComponent,
+        resolve: { nota: NotadecargoResolver}
       }
     ]
   },
@@ -109,7 +123,7 @@ const routes: Routes = [
       },
     ]
   },
-  
+
   {
     path: 'cliente/:id',
     component: ClientePageComponent,

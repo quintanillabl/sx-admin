@@ -30,12 +30,11 @@ export class NotaDeCargoCreateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cartera = this.route.snapshot.data.cartera
-    
+    this.cartera = this.route.snapshot.data.cartera;
   }
 
   onCancel() {
-    this.router.navigate(['../'], {relativeTo: this.route})
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onSave(nota) {
@@ -43,9 +42,10 @@ export class NotaDeCargoCreateComponent implements OnInit {
     this._loadingService.register('processing');
     this.service.save(nota)
     .finally( () => this._loadingService.resolve('processing'))
-    .subscribe(res => {
+    .subscribe( (res: any) => {
       console.log('Res: ', res);
-      this.router.navigate(['../'], {relativeTo: this.route})
+      // this.router.navigate(['../'], {relativeTo: this.route})
+      this.router.navigate(['../show', res.id], {relativeTo: this.route});
     });
   }
 

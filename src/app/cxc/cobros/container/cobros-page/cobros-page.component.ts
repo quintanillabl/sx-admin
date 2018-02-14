@@ -28,24 +28,24 @@ export class CobrosPageComponent implements OnInit {
       format: (date) => this.datePipe.transform(date, 'dd/MM/yyyy'),
       width: 90},
     {name: 'cliente.nombre', label: 'Cliente', sortable: true, numeric: false, nested: true},
-    {name: 'formaDePago', label: 'F. Pago', sortable: true, numeric: false, width: 120},
+    // {name: 'formaDePago', label: 'F. Pago', sortable: true, numeric: false, width: 120},
     {
       name: 'importe', label: 'Importe', sortable: true,numeric: false,
       format: (value)=> this.currencyPipe.transform(value, 'USD'), width: 100
     },
-    {
-      name: 'aplicado', label: 'Aplicado', sortable: true,numeric: false,
-      format: (value)=> this.currencyPipe.transform(value, 'USD'), width: 100
-    },
+    // {
+    //   name: 'aplicado', label: 'Aplicado', sortable: true,numeric: false,
+    //   format: (value)=> this.currencyPipe.transform(value, 'USD'), width: 100
+    // },
     {
       name: 'disponible', label: 'Disponible', sortable: true,numeric: false,
       format: (value)=> this.currencyPipe.transform(value, 'USD'), width: 100
     },
     {
-      name: 'comentario', label: 'Comentario', width: 200
+      name: 'comentario', label: 'Comentario', width: 300
     },
-    {name: 'referencia', label: 'Ref', sortable: true, numeric: true, width: 90},
-    
+    // {name: 'referencia', label: 'Ref', sortable: true, numeric: true, width: 90},
+
   ];
 
   constructor(
@@ -55,7 +55,7 @@ export class CobrosPageComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private pagoUtils: PagoUtils
-  ) { 
+  ) {
     this.cartera = this.route.snapshot.data.cartera;
   }
 

@@ -12,27 +12,27 @@ import { NotaDeCargo } from 'app/_shared/models/notaDeCargo';
 @Injectable()
 export class NotadecargoService {
 
-  private apiUrl: string;  
-  
+  private apiUrl: string;
+
   constructor(
     private http: HttpClient,
     private configService: ConfigService
-  ) 
+  )
   {
     this.apiUrl = configService.buildApiUrl('cxc/notasDeCargo');
   }
-  
+
   get(id: string): Observable<NotaDeCargo> {
     let url = `${this.apiUrl}/${id}`;
     return this.http.get<NotaDeCargo>(url)
   }
 
-  list(filtro?): Observable<NotaDeCargo> {
+  list(filtro?): Observable<NotaDeCargo[]> {
     let params = new HttpParams();
-    _.forIn(filtro, (value, key) =>{
-      params = params.set(key,value);
+    _.forIn(filtro, (value, key) => {
+      params = params.set(key, value);
     });
-    return this.http.get<NotaDeCargo>(this.apiUrl, {params: params}).shareReplay()
+    return this.http.get<NotaDeCargo[]>(this.apiUrl, {params: params}).shareReplay();
   }
 
   buscarCuentasPorCobrar(filtro?): Observable<any> {
@@ -48,10 +48,14 @@ export class NotadecargoService {
     const url = `${this.apiUrl}/timbrar/${nota.id}`
     return this.http.post(url, {});
   }
-  
+
   save(nota) {
-    nota.cliente = { id: nota.cliente.id}
     return this.http.post(this.apiUrl, nota);
+  }
+
+  update(nota): Observable<NotaDeCargo> {
+    const url = `${this.apiUrl}/${nota.id}`;
+    return this.http.put<NotaDeCargo>(url, nota);
   }
 
   print(nota) {
@@ -85,7 +89,7 @@ export class NotadecargoService {
   }
 
   delete(id: string) {
-    return this.http.delete(this.apiUrl+'/'+id);
+    return this.http.delete(this.apiUrl + '/' + id);
   }
 
 }

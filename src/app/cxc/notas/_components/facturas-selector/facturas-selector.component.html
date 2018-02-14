@@ -5,12 +5,15 @@
     <mat-hint>{{cliente.nombre}}</mat-hint>
   </mat-form-field>
 </div>
-<td-data-table 
-  [columns]="columns" [data]="rows" 
+<td-data-table
+  [columns]="columns" [data]="rows"
   [style.height.px]="450"
   [selectable]="true"
   [multiple]="true"
   [(ngModel)]="selectedRows">
+  <ng-template tdDataTableTemplate="tipoDocumento" let-value="value" let-row="row">
+    {{value === 'NOTA_DE_CARGO' ? 'N.CARGO': value}}
+  </ng-template>
 </td-data-table>
 
 <mat-dialog-actions>
