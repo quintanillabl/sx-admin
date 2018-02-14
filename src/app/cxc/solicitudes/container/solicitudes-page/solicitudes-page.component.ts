@@ -23,7 +23,6 @@ export class SolicitudesPageComponent implements OnInit {
 
   columns: ITdDataTableColumn[] = [
     {name: 'folio', label: 'Folio', sortable: true, numeric: true, width: 70},
-    
     { name: 'fecha', label: 'Fecha', numeric: false,
       format: (date) => this.datePipe.transform(date, 'dd/MM/yyyy'),
       width: 90},
@@ -33,32 +32,31 @@ export class SolicitudesPageComponent implements OnInit {
     },
     {name: 'cliente.nombre', label: 'Cliente', sortable: true, numeric: false, nested: true},
     {
-      name: 'total', label: 'Total', sortable: true,numeric: false,
-      format: (value)=> this.currencyPipe.transform(value, 'USD'), width: 100
+      name: 'total', label: 'Total', sortable: true, numeric: false,
+      format: (value) => this.currencyPipe.transform(value, 'USD'), width: 100
     },
     {
       name: 'comentario', label: 'Comentario', width: 200
     }
-    
   ];
 
   constructor(
     private service: SolicitudDeDepositoService,
     private datePipe: DatePipe,
     private currencyPipe: CurrencyPipe,
-  ) { 
-  }
+  ) {}
 
   ngOnInit() {
     this.load();
   }
 
-
   load() {
-    this.solicitudes$ = this.service.list({cartera: this.cartera, pendientes: this.pendientes});
+    this.solicitudes$ = this.service
+    .list({cartera: this.cartera, pendientes: this.pendientes, term: this.term});
   }
 
   search(term) {
+    this.term = term;
     this.load();
   }
 

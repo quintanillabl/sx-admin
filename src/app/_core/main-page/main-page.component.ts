@@ -24,16 +24,6 @@ export class MainPageComponent implements OnInit {
       title: 'Tesoreria'
     },
     {
-      icon: 'shopping_cart',
-      route: '/compras',
-      title: 'Compras'
-    },
-    {
-      icon: 'library_books',
-      route: '/cxp',
-      title: 'Cuentas por pagar'
-    },
-    {
       icon: 'list',
       route: '/cxc',
       title: 'CXC (Crédito)'
@@ -43,26 +33,6 @@ export class MainPageComponent implements OnInit {
       route: '/cxc/contado',
       title: 'CXC (Contado)'
     },
-    {
-      icon: 'color_lens',
-      route: '/tableros',
-      title: 'Tableros',
-    },
-    {
-      icon: 'view_quilt',
-      route: '/reportes',
-      title: 'Reportes',
-    },
-    {
-      icon: 'security',
-      route: '/security',
-      title: 'Seguridad',
-    },
-    {
-      icon: 'settings',
-      route: '/configuracion',
-      title: 'Configuración'
-    }
   ];
 
   usermenu: Array<{icon: string, route: string, title: string}> = [{

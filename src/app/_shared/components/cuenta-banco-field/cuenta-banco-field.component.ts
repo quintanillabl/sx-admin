@@ -14,7 +14,7 @@ export const CUENTA_DE_BANCO_LOOKUPFIELD_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef( () => CuentaBancoFieldComponent),
   multi: true,
-}
+};
 
 @Component({
   selector: 'sx-cuenta-banco-field',
@@ -57,8 +57,10 @@ export class CuentaBancoFieldComponent implements OnInit, ControlValueAccessor {
       .valueChanges
       .startWith(null)
       .switchMap( (term: any) =>  {
-        const params = new HttpParams().set('term', term);
-        return this.http.get<any[]>(this.apiUrl, {params: params})
+        const params = new HttpParams()
+        .set('term', term)
+        .set('disponibleEnVenta', 'disponibleEnVenta');
+        return this.http.get<any[]>(this.apiUrl, {params: params});
       });
   }
 

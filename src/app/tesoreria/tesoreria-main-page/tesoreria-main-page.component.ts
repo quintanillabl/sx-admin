@@ -26,6 +26,11 @@ export class TesoreriaMainPageComponent implements OnInit {
       path: 'autorizados',
       title: 'Autorizados',
       description: 'Depositos autorizados'
+    },
+    {
+      path: 'cobros',
+      title: 'Cobros',
+      description: 'Registro de cobros'
     }
   ];
 
