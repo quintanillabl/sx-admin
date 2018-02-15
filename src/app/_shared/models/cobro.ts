@@ -26,6 +26,8 @@ export interface Cobro {
     tarjeta?: CobroTarjeta;
     cheque?: CobroCheque;
     porAplicar?: number;
+    aplicado?: number;
+    comentario?: string;
 }
 
 export interface CobroTarjeta {

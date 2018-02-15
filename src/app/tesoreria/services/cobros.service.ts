@@ -12,8 +12,8 @@ import { Cobro } from 'app/_shared/models/cobro';
 @Injectable()
 export class CobrosService {
 
-  private apiUrl: string 
-  
+  private apiUrl: string;
+
   constructor(
     private http: HttpClient,
     private config: ConfigService
@@ -23,17 +23,27 @@ export class CobrosService {
 
   get(id: string): Observable<Cobro> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Cobro>(url)
+    return this.http.get<Cobro>(url);
   }
 
   list(filtro: {} = {}): Observable<Cobro[]> {
     let params = new HttpParams()
       .set('pendientes', 'pendientes')
-      .set('sucursal', this.config.getCurrentSucursal().id)
-    _.forIn(filtro, (value, key) =>{
-      params = params.set(key,value);
+      .set('sucursal', this.config.getCurrentSucursal().id);
+    _.forIn(filtro, (value, key) => {
+      params = params.set(key, value);
     });
     return this.http.get<Cobro[]>(this.apiUrl, {params: params})
+  }
+
+  cobrosMonetariosEnCredito(filtro: {} = {}) {
+    let params = new HttpParams()
+      .set('sucursal', this.config.getCurrentSucursal().id);
+    _.forIn(filtro, (value, key) => {
+      params = params.set(key, value);
+    });
+    const url = `${this.apiUrl}/cobrosMonetariosEnCredito`;
+    return this.http.get<Cobro[]>(url, {params: params});
   }
 
 
