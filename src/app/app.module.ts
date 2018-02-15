@@ -18,9 +18,10 @@ import { environment } from '../environments/environment';
 import { ClientesModule } from './clientes/clientes.module';
 import { ConfigService } from 'app/_core/services/config.service';
 import { TesoreriaModule } from 'app/tesoreria/tesoreria.module';
+import { GlobalErrorHandler } from './global-error-handler';
 
 export function onAppInit1(configService: ConfigService): () => Promise<any> {
-  return () => configService.load()
+  return () => configService.load();
 }
 
 @NgModule({
@@ -85,6 +86,7 @@ export function onAppInit1(configService: ConfigService): () => Promise<any> {
      * by `@ngrx/router-store` to include only the desired pieces of the snapshot.
      */
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
+    { provide: ErrorHandler, useClass: GlobalErrorHandler},
   ],
   bootstrap: [AppComponent]
 })
