@@ -24,7 +24,7 @@ import { NotaDeCargoCreateComponent } from 'app/cxc/notas-de-cargo/container/not
 import { NotaDeCargoEditComponent } from './notas-de-cargo/container/nota-de-cargo-edit.component';
 import { NotadecargoResolver } from './notas-de-cargo/container/notadecargo.resolver';
 import { NotaDeCargoShowComponent } from './notas-de-cargo/container/nota-de-cargo-show/nota-de-cargo-show.component';
-
+import { AplicacionPageComponent } from './cobros/_containers/aplicacion-page/aplicacion-page.component';
 
 const routes: Routes = [
   {
@@ -75,6 +75,10 @@ const routes: Routes = [
         path: 'cobros',
         component: CobrosPageComponent,
         data: {cartera: 'CRE'}
+      },
+      {
+        path: 'cobros/edit/:id',
+        component: AplicacionPageComponent
       },
       {
         path: 'notasDeCargo',

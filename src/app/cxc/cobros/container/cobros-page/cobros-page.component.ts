@@ -31,7 +31,7 @@ export class CobrosPageComponent implements OnInit {
     // {name: 'formaDePago', label: 'F. Pago', sortable: true, numeric: false, width: 120},
     {
       name: 'importe', label: 'Importe', sortable: true,numeric: false,
-      format: (value)=> this.currencyPipe.transform(value, 'USD'), width: 100
+      format: (value) => this.currencyPipe.transform(value, 'USD'), width: 100
     },
     // {
     //   name: 'aplicado', label: 'Aplicado', sortable: true,numeric: false,
