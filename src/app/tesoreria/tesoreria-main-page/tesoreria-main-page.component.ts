@@ -28,6 +28,11 @@ export class TesoreriaMainPageComponent implements OnInit {
       description: 'Depositos autorizados'
     },
     {
+      path: 'transito',
+      title: 'Transito',
+      description: 'Depositos en transito'
+    },
+    {
       path: 'cobros',
       title: 'Cobros',
       description: 'Registro de cobros'
