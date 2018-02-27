@@ -1,9 +1,5 @@
-<td-layout-nav-list #navList
-  color="primary"
-  [opened]="media.registerQuery('gt-sm') | async"
-  [mode]="(media.registerQuery('gt-sm') | async) ? 'side' : 'over'"
-  [sidenavWidth]="(media.registerQuery('gt-xs') | async) ? '300px' : '100%'"
-  navigationRoute="/tesoreria">
+<td-layout-nav-list #navList color="primary" [opened]="media.registerQuery('gt-sm') | async" [mode]="(media.registerQuery('gt-sm') | async) ? 'side' : 'over'"
+  [sidenavWidth]="(media.registerQuery('gt-xs') | async) ? '300px' : '100%'" navigationRoute="/tesoreria">
 
   <div td-sidenav-toolbar-content layout="row" layout-align="start center">
     <button mat-icon-button tdLayoutToggle td-menu-button>
@@ -21,10 +17,10 @@
 
     <span flex></span>
     <span>SX Admin</span>
-    <a mat-icon-button matTooltip="Pendiente" >
+    <a mat-icon-button matTooltip="Pendiente">
       <mat-icon>chrome_reader_mode</mat-icon>
     </a>
-    <a mat-icon-button matTooltip="Pendiente" >
+    <a mat-icon-button matTooltip="Pendiente">
       <mat-icon>settings</mat-icon>
     </a>
   </div>
@@ -32,17 +28,16 @@
   <mat-nav-list td-sidenav-content [tdLayoutNavListClose]="!media.query('gt-sm')">
 
     <ng-template let-item let-last="last" ngFor [ngForOf]="navigation">
-      <a mat-list-item
-         [routerLinkActive]="['active']"
-         [routerLink]="item.path"
-         [queryParams]="item.params"
-         [routerLinkActiveOptions]="{exact:false}">
+      <a mat-list-item [routerLinkActive]="['active']" [routerLink]="item.path" [queryParams]="item.params" [routerLinkActiveOptions]="{exact:false}">
         <mat-icon matListAvatar>{{item.icon}}</mat-icon>
         <h3 matLine> {{item.title}} </h3>
         <p matLine> {{item.description}} </p>
       </a>
       <mat-divider matInset *ngIf="!last"></mat-divider>
     </ng-template>
+    <mat-list-item>
+      <span> Comisión tarjetas</span>
+    </mat-list-item>
   </mat-nav-list>
   <div class="tesoreria-page">
     <router-outlet></router-outlet>

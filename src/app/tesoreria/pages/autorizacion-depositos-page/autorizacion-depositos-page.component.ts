@@ -8,7 +8,10 @@ import { AutorizacionesShowComponent } from '../../components/autorizaciones-sho
 import { AutorizacionFormComponent } from '../../components/autorizacion-form/autorizacion-form.component';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { TdVirtualScrollContainerComponent } from '@covalent/core';
+import {
+  TdVirtualScrollContainerComponent,
+  TdDialogService
+} from '@covalent/core';
 
 @Component({
   selector: 'sx-autorizacion-depositos-page',
@@ -39,7 +42,8 @@ export class AutorizacionDepositosPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: SolicitudDeDepositoService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dialogService: TdDialogService
   ) {
     this.reload$
       .takeUntil(this.destroy$)
@@ -86,9 +90,24 @@ export class AutorizacionDepositosPageComponent implements OnInit, OnDestroy {
   }
 
   autorizar(sol: SolicitudDeDeposito, index: number) {
+    this.service.buscarDupicada(sol.id).subscribe(val => {
+      console.log('Duplicada: ', val);
+      if (val.folio) {
+        this.doAutorizar(sol, index, val);
+      } else {
+        this.doAutorizar(sol, index);
+      }
+    });
+  }
+
+  doAutorizar(
+    sol: SolicitudDeDeposito,
+    index: number,
+    duplicada: SolicitudDeDeposito = null
+  ) {
     const dialogRef = this.dialog.open(AutorizacionFormComponent, {
-      width: '600px',
-      data: { solicitud: sol }
+      width: '650px',
+      data: { solicitud: sol, duplicada: duplicada }
     });
     dialogRef.afterOpen().subscribe(() => (this._dialogOpened = true));
     dialogRef.afterClosed().subscribe(val => {

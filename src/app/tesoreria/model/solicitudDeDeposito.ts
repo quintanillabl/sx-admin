@@ -1,13 +1,12 @@
 import { Sucursal, Cliente } from 'app/_shared/models';
 
-
 export interface SolicitudDeDeposito {
   id: string;
   sucursal: Sucursal;
   cliente: Cliente;
   cobro: {};
-  banco: {};
-  cuenta: {};
+  banco: any;
+  cuenta: any;
   tipo: string;
   folio: number;
   fecha: string;

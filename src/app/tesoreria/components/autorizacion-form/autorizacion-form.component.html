@@ -6,36 +6,39 @@
 <mat-dialog-content>
   <div layout="column">
     <mat-form-field>
-      <input type="text" matInput placeholder="Cliente" [value]="solicitud.cliente.nombre" [disabled]="true">
+      <input type="text" matInput placeholder="Cliente" [value]="solicitud.cliente.nombre" class="tc-indigo-800" [disabled]="true">
     </mat-form-field>
     <div layout>
       <mat-form-field>
-        <input matInput placeholder="Cheque" [value]="solicitud.cheque | currency" [disabled]="true">
+        <input matInput placeholder="Cheque" [value]="solicitud.cheque | currency" [disabled]="true" class="tc-indigo-800">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Efectivo" [value]="solicitud.efectivo | currency" [disabled]="true">
+        <input matInput placeholder="Efectivo" [value]="solicitud.efectivo | currency" [disabled]="true" class="tc-indigo-800">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Transferencia" [value]="solicitud.transferencia | currency" [disabled]="true">
+        <input matInput placeholder="Transferencia" [value]="solicitud.transferencia | currency" [disabled]="true" class="tc-indigo-800">
       </mat-form-field>
     </div>
     <div layout>
       <mat-form-field flex>
-        <input matInput placeholder="Total" [value]="solicitud.total | currency" [disabled]="true">
+        <input matInput placeholder="Total" [value]="solicitud.total | currency" [disabled]="true" class="tc-indigo-800">
       </mat-form-field>
       <mat-form-field class="pad-left" flex>
-        <input matInput placeholder="Total" [value]="solicitud.fechaDeposito | date:'dd/MM/yyyy'" [disabled]="true">
+        <input matInput placeholder="Total" [value]="solicitud.fechaDeposito | date:'dd/MM/yyyy'" [disabled]="true" class="tc-indigo-800">
       </mat-form-field>
     </div>
 
     <div layout>
       <mat-form-field flex>
-        <input matInput placeholder="Banco origen" [value]="solicitud.banco.nombre" [disabled]="true">
+        <input matInput placeholder="Banco origen" [value]="solicitud.banco.nombre" [disabled]="true" class="tc-indigo-800">
       </mat-form-field>
       <mat-form-field class="pad-left" flex>
-        <input matInput placeholder="Banco destino" [value]="solicitud.cuenta.descripcion" [disabled]="true">
+        <input matInput placeholder="Banco destino" [value]="solicitud.cuenta.descripcion" [disabled]="true" class="tc-indigo-800">
       </mat-form-field>
     </div>
+    <td-message *ngIf="duplicada" label="Posible duplicada con:" sublabel="Sol: {{duplicada.folio}} - {{duplicada.sucursal.nombre}}  Solicitó: {{duplicada.updateUser}}"
+      color="warn" icon="error">
+    </td-message>
     <mat-form-field flex>
       <input matInput placeholder="Comentario" #comentario>
     </mat-form-field>

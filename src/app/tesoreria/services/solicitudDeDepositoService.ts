@@ -94,4 +94,9 @@ export class SolicitudDeDepositoService {
     const params = new HttpParams().set('comentario', comentario);
     return this.http.put(url, sol, { params: params });
   }
+
+  buscarDupicada(id: string): Observable<any> {
+    const url = `${this.apiUrl}/buscarDuplicada/${id}`;
+    return this.http.get<any>(url).shareReplay();
+  }
 }

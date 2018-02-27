@@ -39,6 +39,7 @@ export class SolicitudesAutorizadasComponent implements OnInit {
     sucursal?: string;
     total?: number;
     fechaDeposito?: string;
+    banco?: string;
   } = {};
 
   constructor(
@@ -56,36 +57,11 @@ export class SolicitudesAutorizadasComponent implements OnInit {
     this.solicitudes$ = this.service
       .autorizadas(this.filter)
       .do(term => (this.procesando = true))
-      // .delay(100)
       .catch(err => this.handleError(err))
       .finally(() => (this.procesando = false));
-    /*
-    this.solicitudes$ = this.search$
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .switchMap(term => {
-        return (
-          this.service
-            .autorizadas(this.filter)
-            .do(term => (this.procesando = true))
-            // .delay(100)
-            .catch(err => this.handleError(err))
-            .finally(() => (this.procesando = false))
-        );
-      });
-      */
   }
 
-  /*
-  search(term: string){
-    this.search$.next(term);
-  }
-  */
-
-  search(data) {
-    console.log('Search: ', data);
-    //this.load();
-  }
+  search(data) {}
 
   searchFolio(folio) {
     this.filter.folio = folio;
@@ -107,6 +83,10 @@ export class SolicitudesAutorizadasComponent implements OnInit {
     if (fecha !== null && _.isDate(fecha)) {
       this.filter.fechaDeposito = fecha.toISOString();
     }
+    this.load();
+  }
+  searchBanco(banco) {
+    this.filter.banco = banco;
     this.load();
   }
 

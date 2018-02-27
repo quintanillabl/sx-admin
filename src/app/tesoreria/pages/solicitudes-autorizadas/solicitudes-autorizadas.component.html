@@ -20,6 +20,8 @@
     <td-search-input placeholder="Folio" showUnderline="true" (searchDebounce)="searchFolio($event)" class="pad-right"></td-search-input>
     <td-search-input placeholder="Cliente" showUnderline="true" (searchDebounce)="searchCliente($event)" flex class="pad-right"></td-search-input>
     <td-search-input type="number" placeholder="Total" showUnderline="true" (searchDebounce)="searchTotal($event)" class="pad-right"></td-search-input>
+    <td-search-input placeholder="Banco destino" showUnderline="true" (searchDebounce)="searchBanco($event)" class="pad-right">
+    </td-search-input>
     <mat-form-field>
       <input matInput [matDatepicker]="picker" placeholder="Fecha deposito" (dateChange)="searchFecha($event.value)">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

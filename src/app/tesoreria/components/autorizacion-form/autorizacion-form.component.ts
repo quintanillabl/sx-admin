@@ -9,12 +9,14 @@ import { SolicitudDeDeposito } from '../../model/solicitudDeDeposito';
 })
 export class AutorizacionFormComponent implements OnInit {
   solicitud: SolicitudDeDeposito;
+  duplicada: SolicitudDeDeposito;
 
   constructor(
     private dialogRef: MatDialogRef<AutorizacionFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.solicitud = data.solicitud;
+    this.duplicada = data.duplicada;
   }
 
   ngOnInit() {}
