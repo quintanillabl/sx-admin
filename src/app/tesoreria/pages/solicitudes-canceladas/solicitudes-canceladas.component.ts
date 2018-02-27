@@ -9,22 +9,19 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { PagoUtils } from 'app/_shared/utils/pagoUtils.service';
 
 @Component({
-  selector: 'sx-solicitudes-autorizadas',
-  templateUrl: './solicitudes-autorizadas.component.html',
+  selector: 'sx-solicitudes-canceladas',
+  templateUrl: './solicitudes-canceladas.component.html',
   styles: []
 })
-export class SolicitudesAutorizadasComponent implements OnInit {
+export class SolicitudesCanceladasComponent implements OnInit {
   columns: ITdDataTableColumn[] = [
     { name: 'folio', label: 'Folio', width: 70 },
     { name: 'sucursal', label: 'Sucursal', width: 120 },
-    { name: 'cliente.nombre', label: 'Cliente', width: 200 },
+    { name: 'cliente.nombre', label: 'Cliente' },
     { name: 'fechaDeposito', label: 'Fecha D', width: 100 },
-    { name: 'cobro.formaDePago', label: 'F.P', width: 150 },
-    { name: 'cobro.dateCreated', label: 'Autorizado', width: 100 },
     { name: 'total', label: 'Total', width: 100 },
-    { name: 'banco.nombre', label: 'Banco', width: 150 },
-    { name: 'cuenta.descripcion', label: 'Destino', width: 150 },
-    { name: 'updateUser', label: 'Usuario', width: 150 }
+    { name: 'cancelacion', label: 'Cancelación', width: 150 },
+    { name: 'cancelacionComentario', label: 'Comentario' }
   ];
 
   solicitudes = [];
@@ -54,37 +51,10 @@ export class SolicitudesAutorizadasComponent implements OnInit {
   load() {
     this.procesando = true;
     this.solicitudes$ = this.service
-      .autorizadas(this.filter)
+      .canceladas(this.filter)
       .do(term => (this.procesando = true))
-      // .delay(100)
       .catch(err => this.handleError(err))
       .finally(() => (this.procesando = false));
-    /*
-    this.solicitudes$ = this.search$
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .switchMap(term => {
-        return (
-          this.service
-            .autorizadas(this.filter)
-            .do(term => (this.procesando = true))
-            // .delay(100)
-            .catch(err => this.handleError(err))
-            .finally(() => (this.procesando = false))
-        );
-      });
-      */
-  }
-
-  /*
-  search(term: string){
-    this.search$.next(term);
-  }
-  */
-
-  search(data) {
-    console.log('Search: ', data);
-    //this.load();
   }
 
   searchFolio(folio) {

@@ -1,7 +1,7 @@
 <mat-card layout>
   <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
     <span class="push-left-sm">
-      <span class="mat-title">Depositos autorizados</span>
+      <span class="mat-title">Solicitudes de deposito en transito</span>
     </span>
     <span flex></span>
     <span>
@@ -15,10 +15,10 @@
       </mat-menu>
     </span>
   </div>
-  <div layout layout-align="start center" class="pad-left-sm pad-right-sm">
-    <td-search-input placeholder="Sucursal" showUnderline="true" (searchDebounce)="searchSucursal($event)" class="pad-right"></td-search-input>
+  <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+    <td-search-input placeholder="Sucursal" showUnderline="true" (searchDebounce)="searchSucursal($event)" flex class="pad-right"></td-search-input>
     <td-search-input placeholder="Folio" showUnderline="true" (searchDebounce)="searchFolio($event)" class="pad-right"></td-search-input>
-    <td-search-input placeholder="Cliente" showUnderline="true" (searchDebounce)="searchCliente($event)" flex class="pad-right"></td-search-input>
+    <td-search-input placeholder="Cliente" showUnderline="true" (searchDebounce)="searchCliente($event)" class="pad-right"></td-search-input>
     <td-search-input type="number" placeholder="Total" showUnderline="true" (searchDebounce)="searchTotal($event)" class="pad-right"></td-search-input>
     <mat-form-field>
       <input matInput [matDatepicker]="picker" placeholder="Fecha deposito" (dateChange)="searchFecha($event.value)">

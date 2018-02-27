@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders} from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { SharedModule } from 'app/_shared/shared.module';
 import { TesoreriaRoutingModule } from './tesoreria-routing.module';
@@ -11,23 +11,28 @@ import { SolicitudesAutorizadasComponent } from './pages/solicitudes-autorizadas
 import { BancosService } from 'app/tesoreria/services/bancos.service';
 import { CobrosService } from 'app/tesoreria/services/cobros.service';
 import { CobrosModule } from './cobros/cobros.module';
+import { AutorizacionFormComponent } from './components/autorizacion-form/autorizacion-form.component';
+import { SolicitudesTransitoComponent } from './pages/solicitudes-transito/solicitudes-transito.component';
+import { SolicitudesCanceladasComponent } from './pages/solicitudes-canceladas/solicitudes-canceladas.component';
 
 @NgModule({
-  imports: [
-    SharedModule,
-    TesoreriaRoutingModule,
-    CobrosModule
+  imports: [SharedModule, TesoreriaRoutingModule, CobrosModule],
+  declarations: [
+    TesoreriaMainPageComponent,
+    AutorizacionDepositosPageComponent,
+    AutorizacionesShowComponent,
+    SolicitudesAutorizadasComponent,
+    AutorizacionFormComponent,
+    SolicitudesTransitoComponent,
+    SolicitudesCanceladasComponent
   ],
-  declarations: [TesoreriaMainPageComponent, AutorizacionDepositosPageComponent, AutorizacionesShowComponent,
-    SolicitudesAutorizadasComponent],
-  entryComponents: []
+  entryComponents: [AutorizacionFormComponent]
 })
 export class TesoreriaModule {
-
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: TesoreriaModule,
-      providers: [SolicitudDeDepositoService, BancosService, CobrosService],
+      providers: [SolicitudDeDepositoService, BancosService, CobrosService]
     };
   }
 }

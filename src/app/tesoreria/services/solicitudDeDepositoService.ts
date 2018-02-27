@@ -7,11 +7,9 @@ import { SolicitudDeDeposito } from '../model/solicitudDeDeposito';
 import { Sucursal } from 'app/_shared/models';
 import { environment } from 'environments/environment';
 
-
 @Injectable()
 export class SolicitudDeDepositoService {
-
-  private  apiUrl = environment.apiUrl + '/tesoreria/solicitudes';
+  private apiUrl = environment.apiUrl + '/tesoreria/solicitudes';
 
   constructor(private http: HttpClient) {}
 
@@ -21,30 +19,49 @@ export class SolicitudDeDepositoService {
   }
 
   pendientes(filtro: {} = {}): Observable<SolicitudDeDeposito[]> {
-    let params = new HttpParams()
-      .set('pendientes', 'pendientes');
-    _.forIn(filtro, (value, key) =>{
-      params = params.set(key,value);
+    let params = new HttpParams().set('pendientes', 'pendientes');
+    _.forIn(filtro, (value, key) => {
+      params = params.set(key, value);
     });
-    const url = `${this.apiUrl}/pendientes`
-    return this.http.get<SolicitudDeDeposito[]>(url, {params: params});
+    const url = `${this.apiUrl}/pendientes`;
+    return this.http.get<SolicitudDeDeposito[]>(url, { params: params });
   }
 
   list(filtro: {} = {}): Observable<SolicitudDeDeposito[]> {
     let params = new HttpParams();
-    _.forIn(filtro, (value, key) =>{
-      params = params.set(key,value);
+    _.forIn(filtro, (value, key) => {
+      params = params.set(key, value);
     });
-    return this.http.get<SolicitudDeDeposito[]>(this.apiUrl, {params: params});
+    return this.http.get<SolicitudDeDeposito[]>(this.apiUrl, {
+      params: params
+    });
   }
 
   autorizadas(filtro: {} = {}): Observable<SolicitudDeDeposito[]> {
     let params = new HttpParams();
-    _.forIn(filtro, (value, key) =>{
-      params = params.set(key,value);
+    _.forIn(filtro, (value, key) => {
+      params = params.set(key, value);
     });
-    const url = `${this.apiUrl}/autorizadas`
-    return this.http.get<SolicitudDeDeposito[]>(url, {params: params});
+    const url = `${this.apiUrl}/autorizadas`;
+    return this.http.get<SolicitudDeDeposito[]>(url, { params: params });
+  }
+
+  transito(filtro: {} = {}): Observable<SolicitudDeDeposito[]> {
+    let params = new HttpParams();
+    _.forIn(filtro, (value, key) => {
+      params = params.set(key, value);
+    });
+    const url = `${this.apiUrl}/transito`;
+    return this.http.get<SolicitudDeDeposito[]>(url, { params: params });
+  }
+
+  canceladas(filtro: {} = {}): Observable<SolicitudDeDeposito[]> {
+    let params = new HttpParams();
+    _.forIn(filtro, (value, key) => {
+      params = params.set(key, value);
+    });
+    const url = `${this.apiUrl}/canceladas`;
+    return this.http.get<SolicitudDeDeposito[]>(url, { params: params });
   }
 
   save(sol: SolicitudDeDeposito): Observable<SolicitudDeDeposito> {
@@ -61,4 +78,20 @@ export class SolicitudDeDepositoService {
     return this.http.put(url, sol);
   }
 
+  posponer(sol: SolicitudDeDeposito) {
+    const url = `${this.apiUrl}/posponer/${sol.id}`;
+    return this.http.put(url, sol);
+  }
+
+  rechazar(sol: SolicitudDeDeposito, comentario: string) {
+    const url = `${this.apiUrl}/rechazar/${sol.id}`;
+    const params = new HttpParams().set('comentario', comentario);
+    return this.http.put(url, sol, { params: params });
+  }
+
+  cancelar(sol: SolicitudDeDeposito, comentario: string) {
+    const url = `${this.apiUrl}/cancelar/${sol.id}`;
+    const params = new HttpParams().set('comentario', comentario);
+    return this.http.put(url, sol, { params: params });
+  }
 }

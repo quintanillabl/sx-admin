@@ -4,17 +4,18 @@ import { TdMediaService } from '@covalent/core';
 @Component({
   selector: 'sx-tesoreria-main-page',
   templateUrl: './tesoreria-main-page.component.html',
-  styles: [`
+  styles: [
+    `
     .tesoreria-page {
       width: 100%;
       height: 100%;
       background-color: beige;
     }
 
-  `]
+  `
+  ]
 })
 export class TesoreriaMainPageComponent implements OnInit {
-
   navigation: Object[] = [
     {
       path: 'autorizaciones',
@@ -25,25 +26,30 @@ export class TesoreriaMainPageComponent implements OnInit {
     {
       path: 'autorizados',
       title: 'Autorizados',
-      description: 'Depositos autorizados'
+      description: 'Depositos autorizados',
+      icon: 'check'
     },
     {
       path: 'transito',
       title: 'Transito',
-      description: 'Depositos en transito'
+      description: 'Depositos en transito',
+      icon: 'swap_horiz'
+    },
+    {
+      path: 'canceladas',
+      title: 'Canceladas',
+      descripcion: 'Solicitudes canceladas',
+      icon: 'cancel'
     },
     {
       path: 'cobros',
       title: 'Cobros',
-      description: 'Registro de cobros'
+      description: 'Registro de cobros',
+      icon: 'file_download'
     }
   ];
 
-  constructor(
-    public media: TdMediaService
-  ) { }
+  constructor(public media: TdMediaService) {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
