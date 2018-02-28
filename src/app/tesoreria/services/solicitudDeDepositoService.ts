@@ -5,13 +5,16 @@ import * as _ from 'lodash';
 
 import { SolicitudDeDeposito } from '../model/solicitudDeDeposito';
 import { Sucursal } from 'app/_shared/models';
-import { environment } from 'environments/environment';
+import { ConfigService } from '../../_core/services/config.service';
+// import { environment } from 'environments/environment';
 
 @Injectable()
 export class SolicitudDeDepositoService {
-  private apiUrl = environment.apiUrl + '/tesoreria/solicitudes';
+  private apiUrl; // = environment.apiUrl + '/tesoreria/solicitudes';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private config: ConfigService) {
+    this.apiUrl = config.buildApiUrl('tesoreria/solicitudes');
+  }
 
   get(id: string): Observable<SolicitudDeDeposito> {
     const url = `${this.apiUrl}/${id}`;
