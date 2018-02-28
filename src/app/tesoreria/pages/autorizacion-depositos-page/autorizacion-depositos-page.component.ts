@@ -114,7 +114,7 @@ export class AutorizacionDepositosPageComponent implements OnInit, OnDestroy {
       if (val) {
         if (val.posponer) {
           this.service.posponer(sol).subscribe(res => {
-            console.log('Solicitud pospuesta: ', res);
+            // console.log('Solicitud pospuesta: ', res);
             this.pendientes.splice(index, 1);
             this.list.refresh();
           });
