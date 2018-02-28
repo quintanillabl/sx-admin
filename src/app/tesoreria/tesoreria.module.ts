@@ -14,6 +14,7 @@ import { CobrosModule } from './cobros/cobros.module';
 import { AutorizacionFormComponent } from './components/autorizacion-form/autorizacion-form.component';
 import { SolicitudesTransitoComponent } from './pages/solicitudes-transito/solicitudes-transito.component';
 import { SolicitudesCanceladasComponent } from './pages/solicitudes-canceladas/solicitudes-canceladas.component';
+import { RepComisionTarjetasComponent } from './components/rep-comision-tarjetas/rep-comision-tarjetas.component';
 
 @NgModule({
   imports: [SharedModule, TesoreriaRoutingModule, CobrosModule],
@@ -24,9 +25,10 @@ import { SolicitudesCanceladasComponent } from './pages/solicitudes-canceladas/s
     SolicitudesAutorizadasComponent,
     AutorizacionFormComponent,
     SolicitudesTransitoComponent,
-    SolicitudesCanceladasComponent
+    SolicitudesCanceladasComponent,
+    RepComisionTarjetasComponent
   ],
-  entryComponents: [AutorizacionFormComponent]
+  entryComponents: [AutorizacionFormComponent, RepComisionTarjetasComponent]
 })
 export class TesoreriaModule {
   static forRoot(): ModuleWithProviders {

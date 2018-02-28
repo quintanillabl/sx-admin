@@ -35,8 +35,11 @@
       </a>
       <mat-divider matInset *ngIf="!last"></mat-divider>
     </ng-template>
-    <mat-list-item>
-      <span> Comisión tarjetas</span>
+    <h3 matSubheader>Reportes</h3>
+    <mat-list-item (click)="comisionesTarjeta()">
+      <mat-icon matListIcon>folder</mat-icon>
+      <h3 matLine> Comisiones tarjeta</h3>
+      <p matLine> Reporte de comisiones</p>
     </mat-list-item>
   </mat-nav-list>
   <div class="tesoreria-page">
