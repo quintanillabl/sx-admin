@@ -8,13 +8,9 @@ import { ConfigService } from 'app/_core/services/config.service';
 
 @Injectable()
 export class NotascxcService {
-
   private apiUrl: string;
 
-  constructor(
-    private http: HttpClient,
-    private configService: ConfigService
-  ) {
+  constructor(private http: HttpClient, private configService: ConfigService) {
     this.apiUrl = configService.buildApiUrl('cxc/notas');
   }
 
@@ -28,7 +24,7 @@ export class NotascxcService {
     _.forIn(filtro, (value, key) => {
       params = params.set(key, value);
     });
-    return this.http.get<any>(this.apiUrl, {params: params}).shareReplay();
+    return this.http.get<any>(this.apiUrl, { params: params }).shareReplay();
   }
 
   buscarRmd(filtro?): Observable<any> {
@@ -37,7 +33,7 @@ export class NotascxcService {
       params = params.set(key, value);
     });
     const url = this.apiUrl + '/buscarRmd';
-    return this.http.get<any>(url, {params: params});
+    return this.http.get<any>(url, { params: params });
   }
 
   buscarFacturasPendientes(filtro?): Observable<any> {
@@ -46,13 +42,13 @@ export class NotascxcService {
       params = params.set(key, value);
     });
     const url = this.apiUrl + '/buscarFacturasPendientes';
-    return this.http.get<any>(url, {params: params});
+    return this.http.get<any>(url, { params: params });
   }
 
   generarNotaDeDevolucion(rmd, cartera) {
     const params = new HttpParams().set('cartera', cartera);
     const url = `${this.apiUrl}/generarConRmd/${rmd.id}`;
-    return this.http.post(url, {}, { params: params});
+    return this.http.post(url, {}, { params: params });
   }
 
   timbrar(nota) {
@@ -66,43 +62,37 @@ export class NotascxcService {
   }
 
   save(nota) {
-    nota.cliente = { id: nota.cliente.id};
+    nota.cliente = { id: nota.cliente.id };
     return this.http.post(this.apiUrl, nota);
   }
 
   print(nota) {
     const url = `${this.apiUrl}/print/${nota.id}`;
-    const headers = new HttpHeaders().set('Content-type' , 'application/pdf');
-    return this.http.get(
-      url, {
-        headers: headers,
-        responseType: 'blob'
-      }
-    );
+    const headers = new HttpHeaders().set('Content-type', 'application/pdf');
+    return this.http.get(url, {
+      headers: headers,
+      responseType: 'blob'
+    });
   }
 
   mostrarXml(nota): Observable<any> {
     const endpoint = `cfdis/mostrarXml/${nota.cfdi.id}`;
     const url = this.configService.buildApiUrl(endpoint);
-    const headers = new HttpHeaders().set('Content-type' , 'text/xml');
-    return this.http.get(
-      url, {
-        headers: headers,
-        responseType: 'blob'
-      }
-    );
+    const headers = new HttpHeaders().set('Content-type', 'text/xml');
+    return this.http.get(url, {
+      headers: headers,
+      responseType: 'blob'
+    });
   }
 
   enviarPorEmail(cfdi, target: string): Observable<any> {
     const endpoint = `cfdis/enviarEmail/${cfdi.id}`;
     const params = new HttpParams().set('target', target);
     const url = this.configService.buildApiUrl(endpoint);
-    return this.http.put(url, {}, {params: params});
+    return this.http.put(url, {}, { params: params });
   }
 
   delete(id: string) {
     return this.http.delete(this.apiUrl + '/' + id);
   }
-
 }
-

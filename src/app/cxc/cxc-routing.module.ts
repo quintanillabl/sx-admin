@@ -30,20 +30,21 @@ const routes: Routes = [
   {
     path: '',
     component: CxcPageComponent,
-    data: {cartera: { tipo: 'CRE', descripcion: 'Crédito'}},
+    data: { cartera: { tipo: 'CRE', descripcion: 'Crédito' } },
     children: [
       {
         path: 'notas',
         component: NotascxcPageComponent,
         children: [
-          {path: 'devoluciones', component: DevolucionesComponent},
-          {path: 'devoluciones/show/:id', component: NotaViewComponent},
-          {path: 'bonificaciones', component: BonificacionesComponent},
+          { path: 'devoluciones', component: DevolucionesComponent },
+          { path: 'devoluciones/show/:id', component: NotaViewComponent },
+          { path: 'bonificaciones', component: BonificacionesComponent },
           {
             path: 'bonificaciones/create',
             component: BonificacionesCreateComponent,
-            data: {tipoCartera: 'CRE'}
-          }, {
+            data: { tipoCartera: 'CRE' }
+          },
+          {
             path: 'bonificaciones/show/:id',
             component: NotaViewComponent
           }
@@ -52,11 +53,11 @@ const routes: Routes = [
       {
         path: 'notas/create',
         component: NotacxcCreatePageComponent,
-        data: {tipoCartera: 'CRE'}
+        data: { tipoCartera: 'CRE' }
       },
       {
         path: 'credito',
-        component: CreditoPageComponent,
+        component: CreditoPageComponent
       },
       {
         path: 'solicitudes',
@@ -65,8 +66,9 @@ const routes: Routes = [
       {
         path: 'solicitudes/create',
         component: SolicitudesCreatePageComponent,
-        data: { cartera: 'CRE'}
-      }, {
+        data: { cartera: 'CRE' }
+      },
+      {
         path: 'solicitudes/edit/:id',
         component: SolicitudEditComponent,
         resolve: { solicitud: SolicitudResolver }
@@ -74,7 +76,7 @@ const routes: Routes = [
       {
         path: 'cobros',
         component: CobrosPageComponent,
-        data: {cartera: 'CRE'}
+        data: { cartera: 'CRE' }
       },
       {
         path: 'cobros/edit/:id',
@@ -83,22 +85,22 @@ const routes: Routes = [
       {
         path: 'notasDeCargo',
         component: NotasDeCargoPageComponent,
-        data: {cartera: 'CRE'}
+        data: { cartera: 'CRE' }
       },
       {
         path: 'notasDeCargo/create',
         component: NotaDeCargoCreateComponent,
-        data: {cartera: 'CRE'}
+        data: { cartera: 'CRE' }
       },
       {
         path: 'notasDeCargo/edit/:id',
         component: NotaDeCargoEditComponent,
-        resolve: { nota: NotadecargoResolver}
+        resolve: { nota: NotadecargoResolver }
       },
       {
         path: 'notasDeCargo/show/:id',
         component: NotaDeCargoShowComponent,
-        resolve: { nota: NotadecargoResolver}
+        resolve: { nota: NotadecargoResolver }
       }
     ]
   },
@@ -106,25 +108,26 @@ const routes: Routes = [
   {
     path: 'contado',
     component: CxcPageComponent,
-    data: {cartera: {tipo: 'CON', descripcion: 'Contado'}},
+    data: { cartera: { tipo: 'CON', descripcion: 'Contado' } },
     children: [
       {
         path: 'notas',
         component: NotascxcPageComponent,
         children: [
-          {path: 'devoluciones', component: DevolucionesComponent},
-          {path: 'devoluciones/show/:id', component: NotaViewComponent},
-          {path: 'bonificaciones', component: BonificacionesComponent},
+          { path: 'devoluciones', component: DevolucionesComponent },
+          { path: 'devoluciones/show/:id', component: NotaViewComponent },
+          { path: 'bonificaciones', component: BonificacionesComponent },
           {
             path: 'bonificaciones/create',
             component: BonificacionesCreateComponent,
-            data: {tipoCartera: 'CRE'}
-          }, {
+            data: { tipoCartera: 'CON' }
+          },
+          {
             path: 'bonificaciones/show/:id',
             component: NotaViewComponent
           }
         ]
-      },
+      }
     ]
   },
 
@@ -133,11 +136,15 @@ const routes: Routes = [
     component: ClientePageComponent,
     resolve: { cliente: ClientePageResolver },
     children: [
-      { path: '', redirectTo: 'info'},
-      { path: 'info', component: ClienteInfoPageComponent},
-      { path: 'estadoDeCuenta', component: EstadoCuentaComponent},
-      { path: 'cobros', component: ClienteCobrosComponent},
-      { path: 'cargos', component: ClienteCargosComponent, data: {cartera: 'CRE'}}
+      { path: '', redirectTo: 'info' },
+      { path: 'info', component: ClienteInfoPageComponent },
+      { path: 'estadoDeCuenta', component: EstadoCuentaComponent },
+      { path: 'cobros', component: ClienteCobrosComponent },
+      {
+        path: 'cargos',
+        component: ClienteCargosComponent,
+        data: { cartera: 'CRE' }
+      }
     ]
   }
 ];
@@ -146,4 +153,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CxcRoutingModule { }
+export class CxcRoutingModule {}
