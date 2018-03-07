@@ -53,7 +53,7 @@ export class CobrosListComponent implements OnInit {
 
   load() {
     this.cobros$ = this.service
-      .cobrosMonetariosEnCredito({term: this.term});
+      .cobrosMonetarios({term: this.term});
   }
 
   search(term) {

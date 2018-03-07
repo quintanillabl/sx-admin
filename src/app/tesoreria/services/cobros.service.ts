@@ -30,7 +30,7 @@ export class CobrosService {
     return this.http.get<Cobro[]>(this.apiUrl, { params: params });
   }
 
-  cobrosMonetariosEnCredito(filtro: {} = {}) {
+  cobrosMonetarios(filtro: {} = {}) {
     let params = new HttpParams().set(
       'sucursal',
       this.config.getCurrentSucursal().id
@@ -38,12 +38,12 @@ export class CobrosService {
     _.forIn(filtro, (value, key) => {
       params = params.set(key, value);
     });
-    const url = `${this.apiUrl}/cobrosMonetariosEnCredito`;
+    const url = `${this.apiUrl}/cobrosMonetarios`;
     return this.http.get<Cobro[]>(url, { params: params });
   }
 
   reporteDeComisionesTarjeta(sucursal, fecha: Date) {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('sucursal', sucursal)
       .set('fecha', fecha.toISOString());
     const headers = new HttpHeaders().set('Content-type', 'application/pdf');
